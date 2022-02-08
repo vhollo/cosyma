@@ -1,0 +1,43 @@
+---
+import Wrapper from './Wrapper.astro'
+import SanityBlockContent from './SanityBlockContent.jsx'
+import { getSanityImageUrl, formatBlogPostDate } from '../utils/helpers.js'
+
+export interface Props {
+  post: any;
+}
+
+const { post } = Astro.props;
+console.log(post);
+// const blogPostBody = await convertBlockContentToMarkdown(post.bodyRaw);
+---
+
+<Wrapper>
+  <article class="post-content__article">
+    {post.location && <h6>{post.location.name}</h6>}
+      {post.image?.asset && <figure>
+        <img width="720" height="420" class="post-main__img" loading="lazy" src={getSanityImageUrl(post.image).url()} />
+        {post.image?.caption && <figcaption>{post.image.caption}</figcaption>}
+      </figure>}
+      <h1>{post.title}</h1>
+      {post.publishedAt && <time>{formatBlogPostDate(post.publishedAt)}</time>}
+      {post.author && <p>By {post.author.name}</p>}
+      <h5>{post.excerpt}</h5>
+      <SanityBlockContent blocks={post.body} />
+      {post.refs?.map(ref => (
+        <p><a href={`/blog/${ref.slug?.current}`}>{ref._lang}</a></p>
+      ))}
+  </article>
+</Wrapper>
+
+<style>
+  .post-content__article {
+    padding: 1rem;
+  }
+
+  .post-main__img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+

@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "studio",
+    "astro"
+  ],
+  "version": "0.0.0"
+}

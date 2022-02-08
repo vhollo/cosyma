@@ -1,0 +1,67 @@
+---
+import { getSanityImageUrl, formatBlogPostDate } from '../utils/helpers.js'
+
+export interface Props {
+  post: any;
+}
+
+const { post } = Astro.props;
+console.log(post.image)
+---
+
+<article class="post-preview__article">
+  <!--<h6>{post.category}</h6>-->
+  <a href={`/blog/${post.slug.current}`}>
+    {post.image?.asset && <img width="720" height="420" class="post-main__img" loading="lazy" src={getSanityImageUrl(post.image).url()} />}
+    <h1 class="title">{post.title}</h1>
+    <time class="publish-date">{formatBlogPostDate(post.publishedAt || post._updatedAt || post._createdAt)}</time>
+    {post.excerpt && <p>{post.excerpt}</p>}
+    {post.location && <h5>{post.location.name}</h5>}
+    {post.category && <h6>{post.category}</h6>}
+    <p>
+      {post.refs?.map(ref => (
+        <a href={`/blog/${ref.slug?.current}`}>{ref._lang}</a><span>&nbsp;</span>
+      ))}
+    </p>
+  </a>
+</article>
+
+<style>
+  .post-preview__article {
+    max-width: 400px;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover > .title {
+    text-decoration: underline;
+  }
+
+.post-main__img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.title,
+.location,
+.publish-date {
+  margin: 0;
+}
+
+.publish-date,
+.location {
+  font-size: 1.25rem;
+  color: var(--theme-text-lighter);
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--theme-text);
+}
+
+</style>
