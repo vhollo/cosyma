@@ -113,7 +113,7 @@ export default {
     {
       title: "Body",
       name: "body",
-      type: "richText",
+      type: "blockContent",
     },
   ],
   preview: {

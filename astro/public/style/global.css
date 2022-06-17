@@ -1,5 +1,258 @@
-html, body{
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans',Arial, Helvetica, sans-serif;
+@import "./norm.css";
+/*@font-face {
+  font-family: 'Silk Serif Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Silk Serif Regular'), url('./silk-serif-cufonfonts-webfont/Silk Serif Regular.woff') format('woff');
+}*/
+/*@font-face {
+  font-family: 'Silk Serif Medium Medium Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Silk Serif Medium Medium Italic'), url('./silk-serif-cufonfonts-webfont/Silk Serif Medium Medium Italic.woff') format('woff');
+}*/
+@font-face {
+  font-family: 'Silk Serif Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Silk Serif Medium'), url('./silk-serif-cufonfonts-webfont/Silk Serif Medium.woff') format('woff');
+}
+@font-face {
+  font-family: 'Silk Serif Medium Medium Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Silk Serif Medium Italic'), url('./silk-serif-cufonfonts-webfont/Silk Serif Medium Italic.woff') format('woff');
+}
+@font-face {
+  font-family: 'Silk Serif SemiBold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Silk Serif SemiBold'), url('./silk-serif-cufonfonts-webfont/Silk Serif SemiBold.woff') format('woff');
+}
+
+:root {
+  --toolsize: 5rem;
+  --headsize: 2rem;
+  --midsize: 1.5rem;
+  --smallsize: .75rem;
+  
+  --gutter: 1rem;
+  --gutter-: -1rem;
+  --gutter2: 2rem;
+  --gutter2-: -2rem;
+  --gutterx: calc(var(--gutter) / 2);
+  --gutterx-: calc(var(--gutter) / -2);
+  --guttery: calc(var(--gutter) / 4);
+  --gutterz: calc(var(--gutter) / 8);
+  --spacer: calc(4 * var(--gutter));
+
+  --figurewidth: 80ch;
+
+  --darkgray: #0f2537;
+  --midtone: #1f4667;
+  --light: #e2e8f0;
+  --lighter: #f9fafb;
+  --grad: hsl(207deg 50% 66%);
+  --shadow: hsl(207deg 50% 66% / 15%);
+}
+
+:root {
+  /*font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;*/
+  font-family: sans-serif;
+  font-size: 1rem;
+  --user-font-scale: 1rem - 16px;
+  font-size: clamp(0.875rem, 0.4626rem + 1.0309vw + var(--user-font-scale), 1.125rem);
+  /*font-size: clamp(1rem, 1rem + 1.0309vw + var(--user-font-scale), 1.125rem);*/
+}
+html {
+  background: var(--grad);
+}
+body {
+  /*background: radial-gradient(circle at top, hsl(207, 54%, 96%) 0%, #f9fafb 50%, hsl(207, 54%, 92%) 100%);*/
+  background: radial-gradient(circle at top, hsl(207, 54%, 96%) 0%, var(--lighter) 50%, var(--grad) 120%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  margin-inline: auto;
+/*display: grid;
+  justify-content: center;*/
+  color: var(--dark, #111827);
+  filter: hue-rotate(5deg) contrast(1.1);
+  /*padding-top: 1rem;*/
+}
+
+/*@media (prefers-color-scheme: dark) {
+  body {
+    background: #111827;
+    color: #fff;
+  }
+}*/
+
+main, section {
+  width: min(100%, 112ch);
+  margin-inline: auto;
+  line-height: 1.65;
+  display: flex;
+  gap: 1.5rem;
+  /*flex-wrap: wrap;*/
+  flex-direction: column;
+  /*align-items: center;*/
+  padding: var(--spacer) var(--gutterx) var(--gutter);
+}
+article {
+  width: min(100%, 80ch);
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  /*align-items: center;*/
+  margin-inline: auto;
+  margin-bottom: 5rem;
+  padding-inline: var(--gutter);
+}
+/*article > :first-child {
+  padding-top: var(--spacer);
+}*/
+article > :first-child::first-letter/*, article > span */{
+  /*color: blue;*/
+  font-size: 2em;
+  font-weight: 100;
+  vertical-align: bottom;
+  line-height: .875em;
+  font-family: "Silk Serif Medium", serif;
+  text-rendering: geometricPrecision;
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+}
+article > :last-child {
+  padding-bottom: var(--gutter);
+}
+article a {
+  border-bottom: 2px dotted;
+}
+svg {
+  fill: inherit;
+  stroke: inherit;
+  margin: 0 auto;
+  max-width: 100%;
+}
+svg text {
+  margin: 0 auto;
+}
+
+figure {
+  margin: 1rem 0 var(--gutter2);
+}
+
+strong, b {
+  font-weight: normal;
+  /*font-family: 'Silk Serif SemiBold';*/
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+}
+
+header p {
+  font-family: 'Silk Serif SemiBold';
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+}
+
+header {
+  text-align: center;
+  font-size: 1.2rem;
+  /*line-height: 2em;*/
+  /*font-weight: bolder;*/
+}
+
+header, blockquote {
+  font-family: "Silk Serif Medium", serif;
+  text-rendering: geometricPrecision;
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+  color: var(--midtone, #1f4667);
+}
+
+blockquote {
+  font-size: 1.5rem;
+  text-align: start;
+  margin-inline: auto;
+  width: fit-content;
+  border-bottom: 2px solid;
+}
+
+article em, article i {
+  font-family: "Silk Serif Medium Italic", serif;
+  text-rendering: geometricPrecision;
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+  font-size: 1.15rem;
+  line-height: 1.15em;
+  /*font-weight: bolder;*/
+}
+
+/*article b, article strong {
+  font-family: 'Silk Serif Regular';
+  text-rendering: geometricPrecision;
+  font-size: 1.05rem;
+  line-height: 1.15em;
+  font-weight: bolder;
+}*/
+
+h1, h2, h3, h4, h5, h6 {
+  /*line-height: 1.25em;*/
+  color: var(--midtone, #1f4667);
+}
+h1, h2, h3 {
+  /*font-size: 1.25em;*/
+  text-align: center;
+}
+h1, h4, h5 {
+  font-family: 'Silk Serif SemiBold';
+  text-rendering: geometricPrecision;
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+}
+h2, h3 {
+  font-family: "Silk Serif Medium", serif;
+  text-rendering: geometricPrecision;
+  text-shadow: 0 0 1px var(--midtone, #1f4667);
+}
+
+/*h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}*/
+
+figcaption {
+  font-size: 96%;
+  word-wrap: break-word;
+  text-align: center;
+}
+figcaption a {
+  font-style: Medium Italic;
+}
+
+p, ul, ol, dl {
+  margin: 0.67em 0;
+}
+
+p a {
+  text-decoration: revert;
+}
+
+dd p {
+  margin-top: 0;
+}
+
+span {
+  display: inline;
 }

@@ -1,0 +1,66 @@
+---
+export interface Props {
+  slug: Object;
+}
+
+import Mozaik from '../../layouts/Mozaik.astro'
+
+import { client } from '../../lib/sanityClient.js';
+import { allCategoriesWithPosts } from '../../lib/api.js';
+import { allPosts } from '../../lib/api.js';
+import { catPages } from '../../lib/api.js';
+//import { alllPages } from '../../lib/api.js';
+
+export async function getStaticPaths() {
+  const paths = new Set();
+
+//  const pagess = await client.fetch(alllPages);
+//  console.log({pagess})
+  const pages = await client.fetch(catPages);
+//  console.log({pages})
+  const allBlogPosts = await client.fetch(allPosts);
+  const indexPosts = allBlogPosts?.filter((post) => post.index != 'false')
+  /*indexPosts.map(post => {
+    //console.log(post.category)
+    post.cat = post.category.slug
+  })*/
+  
+  const allCategoryData = await client.fetch(allCategoriesWithPosts);
+  allCategoryData.map(category => {
+  //console.log(category.slug)
+    const langs = Object.entries(category.slug)
+    langs.forEach(([lang, slug]) => {
+      let filteredPosts
+      if (lang == slug.current) filteredPosts = indexPosts.filter((post) => post._lang == lang)
+      else filteredPosts = category.posts?.filter((post) => post._lang == lang);
+      //console.log(filteredPosts)
+      filteredPosts.map(post => {
+        post.cat = category.slug
+      })
+      
+      //const page = category.pages?.filter((page) => page._lang == lang)
+      /*const page = pages?.filter((page) => page.slug[lang] == category.slug)
+
+      if (page[0]?.order == 'abc') {
+        filteredPosts.sort((a, b) => {
+          return a.slug.current.localeCompare(b.slug.current)
+        })
+      }*/
+      //console.log('CATpage',page)
+      paths.add({params: {cat: slug.current}, props: {lang: lang, pages: pages, posts: filteredPosts, page: category}})
+      /*if (slug.current == 'hu') {
+        slug.current = undefined;
+        paths.add({params: {cat: slug.current}, props: {lang: lang, pages: pages, posts: filteredPosts, page: page[0]}})
+      }*/
+    });
+  })
+  //console.log(pages)
+  
+  return Array.from(paths)
+}
+
+//const { page, pages, posts } = Astro.props
+//console.log({posts})
+---
+
+<Mozaik {...Astro.props} summaryfrom="auto"/>

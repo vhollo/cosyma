@@ -2,15 +2,15 @@ import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 import { translateFields } from './fieldTranslation'
 
-import richText from './objects/richText'
 import openGraph from './objects/openGraph'
 import captionImage from './objects/captionImage'
 import blockContent from './objects/blockContent'
-import article from './documents/article'
-import location from './documents/location'
+import inlineContent from './objects/inlineContent'
+//import article from './documents/article'
 import category from './documents/category'
-import author from './documents/author'
+import timeslot from './documents/timeslot'
 import post from './documents/post'
+import page from './documents/page'
 
 export default createSchema({
   name: 'default',
@@ -20,10 +20,11 @@ export default createSchema({
       // or document type that should not have
       // field-level validations (but Document translation)
       blockContent,
-      richText,
+      inlineContent,
       openGraph,
       captionImage,
-      post
+      post,
+      page,
     ])
     // Include documents with field translation support.
     // This changes their structure, transforming
@@ -36,9 +37,7 @@ export default createSchema({
     // set localize: true on any field level will
     // not be changed.
     .concat(translateFields([
-      article,
-      location,
       category,
-      author
+      timeslot,
     ]))
 })

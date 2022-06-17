@@ -65,8 +65,7 @@ export default {
                 type: 'reference',
                 to: [
                   { type: 'post' },
-                  { type: 'article' },
-                  { type: 'location' },
+                  { type: 'page' },
                   // other types you may want to link to
                 ]
               },
@@ -81,6 +80,20 @@ export default {
     {
       type: 'captionImage',
       options: {hotspot: true},
-    }
+    },
+    {
+      title: 'File link',
+      type: 'file',
+      fields: [
+        {
+          name: 'description',
+          type: 'string',
+          title: 'Description',
+          options: {
+            isHighlighted: true
+          }
+        },
+      ]
+    },
   ],
 }

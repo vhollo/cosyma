@@ -1,0 +1,60 @@
+---
+import Image from '../components/Image.astro'
+import SanityBlockContent from '../components/SanityBlockContent.jsx'
+//import Debug from 'astro/debug'
+
+const { timeline, lang } = Astro.props
+//console.log(timeline[0].image)
+//console.log(timeline[4].image)
+//const { html } = content.astro
+---
+{timeline && <dl>
+{timeline.map(item => (
+  <Fragment>
+  <dt><date>{item.date1}{item.date2 ? '–' + item.date2 : ''}</date></dt>
+  <dd>
+    <SanityBlockContent blocks={item.detail[lang]}/>
+    {item.image[lang]?.asset && <Image image={item.image[lang]}/>}
+  </dd>
+  <!--<Debug {item.image}/>-->
+  </Fragment>
+))}
+</dl>}
+
+<style>
+	dl {
+		--figurewidth: 32ch;
+		margin-top: 2rem;
+	}
+
+	dl {
+		display: grid;
+		grid-template-columns: 12ch 1fr;
+		gap: 0 var(--gutter);
+		border-left: dotted 4px;
+    margin-left: 12ch;
+	}
+	dt {
+		position: relative;
+		text-align: right;
+		padding: 0 var(--gutter) var(--gutter) 0;
+		margin-left: -12ch;
+		width: 12ch;
+	}
+	dt::after {
+		content: '';
+		position: absolute;
+		margin-right: 2px;
+		top: var(--guttery);
+		right: var(--gutterx-);
+		width: var(--gutter);
+		height: var(--gutter);
+		border-radius: var(--gutterx);
+		border-width: var(--gutterz);
+    background-color: white;
+	}
+	dd {
+		margin-left: -12ch;
+    padding-bottom: var(--gutter2);
+	}
+</style>

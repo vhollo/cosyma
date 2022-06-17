@@ -6,13 +6,14 @@ import {
   GrDocumentText as FieldIcon,
   GrMultiple as DocumentIcon,
   GrTextAlignLeft as PostIcon,
-  GrUser as AuthorIcon,
   GrArticle as ArticleIcon,
-  GrLocation as LocationIcon
 } from 'react-icons/gr'
 
 export const getDefaultDocumentNode = (props) => {
   if (props.schemaType === 'post') {
+    return S.document().views(I18nS.getDocumentNodeViewsForSchemaType(props.schemaType));
+  }
+  if (props.schemaType === 'page') {
     return S.document().views(I18nS.getDocumentNodeViewsForSchemaType(props.schemaType));
   }
   return S.document();
@@ -23,42 +24,34 @@ export default () =>
     .title('Content')
     .items([
       S.listItem()
-        .title('Field level')
+        .title('Settings')
         .icon(FieldIcon)
         .child(
           S.list()
-            .id('field-level')
-            .title('Field level translations')
-            .items(
-              [
-                S.documentTypeListItem('article')
-                  .icon(ArticleIcon),
-                S.documentTypeListItem('location')
-                  .icon(LocationIcon),
-                S.documentTypeListItem('category')
-                  .icon(LocationIcon),
-                S.documentTypeListItem('author')
-                  .icon(AuthorIcon),
-              ]
-            )
+            .id('settings')
+            .title('Settings')
+            .items([
+              S.documentTypeListItem('category')
+                .icon(ArticleIcon),
+            ])
         ),
       S.listItem()
-        .title('Document level')
+        .title('Documents')
         .icon(DocumentIcon)
         .child(
           S.list()
-            .id('doc-level')
-            .title('Document level translations')
+            .id('docs')
+            .title('Documents')
             .items([
               S.listItem()
-                .title('Post')
-                .id('post-docs')
+                .title('Posts')
+                .id('posts')
                 .icon(PostIcon)
                 .schemaType('post')
                 .child(
                   S.documentList()
                     .id('post')
-                    .title('Posts')
+                    .title('Post')
                     // Use a GROQ filter to get documents.
                     .filter('_type == "post" && (!defined(_lang) || _lang == $baseLang)')
                     .params({ baseLang: i18n.base })
@@ -66,8 +59,24 @@ export default () =>
                       // Assume we can handle all intents (actions) regarding post documents
                       return params.type === 'post'
                     })
-                )
-            ]
-            )
+                ),
+              /*S.listItem()
+                .title('Pages')
+                .id('pages')
+                .icon(ArticleIcon)
+                .schemaType('page')
+                .child(
+                  S.documentList()
+                    .id('page')
+                    .title('Page')
+                    // Use a GROQ filter to get documents.
+                    .filter('_type == "page" && (!defined(_lang) || _lang == $baseLang)')
+                    .params({ baseLang: i18n.base })
+                    .canHandleIntent((_name, params, _context) => {
+                      // Assume we can handle all intents (actions) regarding page documents
+                      return params.type === 'page'
+                    })
+                ),*/
+            ]),
         ),
     ])

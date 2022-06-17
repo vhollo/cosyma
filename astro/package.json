@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@astrojs/renderer-lit": "^0.2.1",
+    "@sanity/asset-utils": "^1.2.3",
     "@sanity/block-content-to-markdown": "^0.0.5",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.23.2",

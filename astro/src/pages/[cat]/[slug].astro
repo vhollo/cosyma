@@ -1,0 +1,60 @@
+---
+import Mozaik from '../../layouts/Mozaik.astro'
+
+//import BlogPostLayout from '../../layouts/BlogPostLayout.astro'
+//import BlogPost from '../../components/BlogPost.astro'
+import {client} from '../../lib/sanityClient.js';
+import { getSanityImageUrl } from '../../utils/helpers.js';
+import { allPosts } from '../../lib/api.js';
+import { allCategoriesWithPosts } from '../../lib/api.js';
+import { catPages } from '../../lib/api.js';
+
+export async function getStaticPaths({rss}) {
+  const pages = await client.fetch(catPages);
+  const allBlogPosts = await client.fetch(allPosts);
+  //console.log(allBlogPosts)
+  rss({
+    title: 'Example Blog',
+    description: 'An example blog on Astro',
+    customData: `<language>en-us</language>`,
+    items: allBlogPosts.map(item => ({
+      title: item.title,
+      description: item.description,
+      link: `${item.cat?.current}/${item.slug?.current}`,
+      pubDate: item.publishedAt,
+    })),
+  });
+        //const pp = Object.entries(allBlogPosts)
+        //allBlogPosts.forEach(p => console.log(p.category.slug['hu'].current, p.title))
+        //console.log('---')
+
+  const allCategoryData = await client.fetch(allCategoriesWithPosts);
+  const paths = new Set();
+  allCategoryData.map(category => {
+    const slugs = Object.entries(category.slug)
+    //console.log(category.slug.hu.current,category.posts)
+    slugs.forEach(([lang, slug]) => {
+      //const filteredPosts = category.posts.filter((post) => post._lang == lang);
+      const filteredPosts = category.posts?.filter((post) => post._lang == lang)
+      //console.log(filteredPosts)
+      filteredPosts.map(post => {
+        post.cat = category.slug;
+        paths.add({params: {cat: slug.current, slug: post.slug.current},props: {lang: lang, pages: pages, page: category, posts: filteredPosts, post: post}})
+      })
+    });
+  })
+  return Array.from(paths)
+
+  /*
+  allBlogPosts.map(post => {
+    console.log(post.slug)
+  })
+  return allBlogPosts.map(post => ({params: { slug: post.slug.current }, props: {post}}));
+  */
+}
+
+//const { posts } = Astro.props;
+//console.log(posts)
+---
+
+<Mozaik {...Astro.props}/>

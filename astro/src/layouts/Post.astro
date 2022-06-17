@@ -1,0 +1,45 @@
+---
+import Image from '../components/Image.astro'
+import Timeline from '../components/Timeline.astro'
+import SanityBlockContent from '../components/SanityBlockContent.jsx'
+//import Debug from 'astro/debug'
+
+const { post } = Astro.props
+---
+
+<!--
+  - You can also use imported framework components directly in your markup!
+  -
+  - Note: by default, these components are NOT interactive on the client.
+  - The `:visible` directive tells Astro to make it interactive.
+  -
+  - See https://docs.astro.build/core-concepts/component-hydration/ 
+-->
+
+{post?.title &&
+<h1>{post.title}</h1>}
+
+{post?.image?.asset && 
+<Image image={post.image} w="1440" />}
+
+{post?.subtitle &&
+<h2>{post.subtitle}</h2>}
+
+{post?.summary && 
+<header>
+  <SanityBlockContent blocks={post.summary}/>
+</header>}
+
+{post?.body && 
+<article>
+  <SanityBlockContent blocks={post.body}/>
+</article>}
+
+{post?.timeline && 
+<article>
+  <Timeline timeline={post.timeline} lang={post._lang}/>
+</article>}
+
+
+<style>
+</style>

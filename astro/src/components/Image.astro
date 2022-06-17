@@ -1,0 +1,45 @@
+---
+import { getSanityImageUrl, formatBlogPostDate } from '../utils/helpers.js'
+const { image } = Astro.props
+if (!image?.asset) return
+//console.log('IMAGE',{image})
+let src// = getSanityImageUrl(image)
+
+let { w } = Astro.props
+w = w || 720
+
+let { h } = Astro.props
+h = h || false
+let { ratio } = Astro.props
+if (ratio) h = w * ratio / 100
+
+if (h) {
+  src = getSanityImageUrl(image).width(w).height(h).url()
+} else {
+  src = getSanityImageUrl(image).width(w).url()
+}
+
+const { caption } = image || {}
+//console.log('IMAGE', src)
+//let path = `/assets/${folder}/${src}`
+let lang = 'hu', lazy
+---
+<!--{folder && src && -->
+{src && 
+  <figure>
+    <img loading={lazy} src={src} alt=""/>
+    {!!caption && <figcaption lang={lang}>{caption[lang] || caption}</figcaption>}
+  </figure>
+}
+
+<style>
+	figure {
+    max-width: var(--figurewidth, 100%);
+		margin: 1rem auto;
+	}
+	img {
+		margin: 0 0 1rem;
+    box-shadow: var(--shadow) 0 0 0.5rem;
+    border-radius: 0.25rem;
+	}
+</style>

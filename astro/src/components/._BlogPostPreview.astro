@@ -5,22 +5,23 @@ export interface Props {
   post: any;
 }
 
-const { post } = Astro.props;
-console.log(post.image)
+const { post, cat } = Astro.props
+const { _lang } = post
+//console.log({post});
+//console.log(cat)
 ---
 
 <article class="post-preview__article">
   <!--<h6>{post.category}</h6>-->
-  <a href={`/blog/${post.slug.current}`}>
+  <a href={`/${cat}/${post.slug.current}`}>
     {post.image?.asset && <img width="720" height="420" class="post-main__img" loading="lazy" src={getSanityImageUrl(post.image).url()} />}
     <h1 class="title">{post.title}</h1>
     <time class="publish-date">{formatBlogPostDate(post.publishedAt || post._updatedAt || post._createdAt)}</time>
     {post.excerpt && <p>{post.excerpt}</p>}
-    {post.location && <h5>{post.location.name}</h5>}
-    {post.category && <h6>{post.category}</h6>}
+    {post.category?.title && <h6>_{post.category.title[_lang]}</h6>}
     <p>
-      {post.refs?.map(ref => (
-        <a href={`/blog/${ref.slug?.current}`}>{ref._lang}</a><span>&nbsp;</span>
+      {post.cat && post.refs?.map(ref => (
+        <a href={`/${post.cat[ref._lang].current}/${ref.slug?.current}`}>{ref._lang}</a><span>&nbsp;</span>
       ))}
     </p>
   </a>

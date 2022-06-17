@@ -1,6 +1,6 @@
 ---
 // Component Imports
-import BaseLayout from '../../layouts/BaseLayout.astro'
+import Layout from '../../layouts/Layout.astro'
 import Wrapper from '../../components/Wrapper.astro'
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
 
@@ -22,7 +22,7 @@ const posts = await client.fetch(allPosts);
 
 ---
 <!DOCTYPE html>
-<BaseLayout title={title} description={description} permalink={permalink} canonicalURL={Astro.request.canonicalURL.href}>
+<Layout title={title} description={description} permalink={permalink} canonicalURL={Astro.request.canonicalURL.href}>
   <Wrapper>
     <article class="blog-page-content__article">
       <section class="postlist">
@@ -30,7 +30,7 @@ const posts = await client.fetch(allPosts);
       </section>
     </article>
   </Wrapper>
-</BaseLayout>
+</Layout>
 
 <style global>
  /* Posts list */

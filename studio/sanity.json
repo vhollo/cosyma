@@ -1,11 +1,11 @@
 {
   "root": true,
-  "project": {
-    "name": "Studioo with Localization"
-  },
   "api": {
-    "projectId": "j8hrdccx",
+    "projectId": "6smtccuo",
     "dataset": "production"
+  },
+  "project": {
+    "name": "Cosyma Admin Studio"
   },
   "plugins": [
     "@sanity/base",

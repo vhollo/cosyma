@@ -1,0 +1,129 @@
+---
+const { pages, lang } = Astro.props;
+
+/*let home
+home = home || pages?.shift() || {}*/
+//const p = pages.slice()
+const p = pages?.slice()/*.filter(item => item.index >= 0)*/ || []
+//console.log({p})
+const home = p?.shift() || {}
+//console.log({p})
+---
+<nav>
+  <details>
+    <summary>⚑</summary>
+    <a href="/">Magyar</a>
+    <a href="/en">English</a>
+    <a href="/de">Deutsch</a>
+  </details>
+  <div>
+    <a href="/">
+      <img src="/assets/csh_logo_notext.svg" alt=""/>
+    </a>
+    <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
+      <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1><!-- -->
+    </a>
+    <!--<div>HU | EN</div>-->
+    {p?.length && <div>
+      <ul>
+        {p.map(item => (/// && item.index
+        <li><a href={`/${item.slug[lang].current}`}>{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.category[lang] || '?!?'}</a></li>
+        ))}
+        <li></li>
+      </ul>
+    </div>}
+        <!--<li><a href="/">Jelentkezés</a></li>
+        <li><a href="/">Előadások</a></li>-->
+  </div>
+</nav>
+
+<style>
+  nav {
+    /*background-image: url('/assets/header_red.png'), url('/assets/header_green.png');
+    background-position: top, bottom;
+    background-size: 100% 2rem, 100% 2rem, cover;
+    background-repeat: no-repeat;*/
+    margin-bottom: 2rem;
+    /*margin-inline: auto;*/
+    line-height: 1.15;
+  }
+  details {
+    position: absolute;
+    background-color: var(--lighter);
+    border-width: medium;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    cursor:default;
+  }
+  summary {
+    list-style: none;
+    font-size: xx-large;
+    padding: 0 0.5rem;
+  }
+  details a {
+    padding: .25rem .5rem;
+  }
+  nav div {
+    width: min(100%, 128ch);
+    overflow-x: auto;
+    margin-inline: var(--gutter2);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-block: 1rem;
+  }
+  nav a {
+    display: block;
+  }
+  nav div > a:first-of-type {
+    flex-grow: 0;
+    padding-left: 1rem;
+  }
+  nav div > a:last-of-type {
+    flex-grow: 0;
+    display: flex;
+    align-items: center;
+    padding-right: 5rem;
+  }
+  nav div > a img {
+    display: block;
+    width: 3rem;
+    padding: 0 0 2rem;
+    margin: -.5rem 0 .5rem;
+  }
+  nav h1 {
+    text-align: center;
+    font-weight: lighter;
+    font-size: 1.5rem;
+    line-height: 1.25em;
+    padding: 0 1rem;
+    margin: 0;
+    inline-size: min-content;
+  }
+  nav h1 :global(span) {
+    display: block;
+  }
+  div div {
+    background-image: url('/assets/header_notes_wide.png');
+    background-position: left center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-block: -1rem;
+  }    
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    height: 100%;
+  }
+  ul li {
+    /*padding-inline-end: 2rem;*/
+    font-size: larger;
+  }
+  ul a {
+    padding: .5rem 1rem;
+  }
+</style>

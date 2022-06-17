@@ -16,7 +16,7 @@ export default {
       },
     },
     {
-      type: 'richText',
+      type: 'blockContent',
       name: 'bio',
       // Only want the bio to be localized in this case
       localize: true

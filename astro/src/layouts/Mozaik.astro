@@ -1,0 +1,112 @@
+---
+import Layout from './Layout.astro'
+import Page from './Page.astro'
+import Post from './Post.astro'
+import Image from '../components/Image.astro'
+import Timeline from '../components/Timeline.astro'
+import SanityBlockContent from '../components/SanityBlockContent.jsx'
+
+// Component Imports
+// import Header from '$lib/Header.astro'
+// You can import components from any supported Framework here!
+
+
+// Component Script:
+// You can write any JavaScript/TypeScript that you'd like here.
+// It will run during the build, but never in the browser.
+// All variables are available to use in the HTML template below.
+
+const { page, post, posts, summaryfrom, lang } = Astro.props
+//console.log('MOZAIK', page.body)
+//console.log('MOZAIK', page)
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+
+const imgsize = { "false": 0, "true": 360, "double": 720, "full": 1440 }
+const ratio = { "false": 0, "true": 75, "double": 67, "full": 50 }
+---
+<Layout {...Astro.props} meta={page?.title}>
+
+<main>
+
+{post && <Post {post}/>}
+{!post && !!page && <Page {page} {lang}/>}
+
+</main>
+
+{posts && 
+<section>
+  {posts.map(item => (
+  <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.index}>
+
+      <h2>{item.title}</h2>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.image.index]} ratio={ratio[item.image.index]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && item.summary != 'none' && <SanityBlockContent blocks={item.summary}/>}
+      {(summaryfrom == 'content' && !item.summary) && (
+        <SanityBlockContent blocks={item.body} />
+      )}
+    
+  </a>
+  ))}
+</section>}
+</Layout>
+
+<style>
+  @media screen and (orientation: landscape), screen and (min-width: 65ch) {
+    section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(32ch, 1fr));
+      grid-auto-flow: dense;
+    }
+  }
+  a {
+    padding: 0 2vw;
+    box-sizing: content-box;
+    transition: all .25s;
+    position: relative;
+    display: block;
+    border-radius: 0.35rem;
+
+    background-color: aliceblue;
+    box-shadow: lightgrey 0 0 .5rem;
+  }
+  a.double {
+    grid-column-end: span 2;
+    /*grid-row-end: span 2;*/
+  }
+  a:hover {
+    transform: scale(1.025);
+    box-shadow: lightgrey 0 0 1rem;
+  }
+
+  a:last-child {
+    margin-bottom: 5vh;
+  }
+
+  a:last-child > button {
+    bottom: 3vh;
+  }
+  a:nth-child(odd) > button {
+    right: 4vw;
+  }
+  a:nth-child(even) > button {
+    left: 4vw;
+  }
+
+  h3, h4, h5, h6 {
+    /*padding: 2vh 4vw;*/
+    text-align: start;
+    padding-inline: 0;
+  }
+  
+  /*img {
+    box-shadow: dimgrey 0 0 .5rem;
+  }*/
+	section img {
+		margin: 0 0 1rem;
+    box-shadow: lightgrey 0 0 0.25rem;
+    border-radius: 0.125rem;
+	}
+</style>

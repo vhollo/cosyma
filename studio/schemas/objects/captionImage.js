@@ -6,7 +6,7 @@ export default {
     {
       name: 'caption',
       type: 'string',
-      title: 'Caption',
+      title: 'Image caption',
       options: {
         isHighlighted: true
       }
@@ -16,7 +16,7 @@ export default {
       name: 'hero',
       type: 'boolean',
       options: {
-        isHighlighted: true
+        isHighlighted: false
       }
     },
     {
@@ -24,7 +24,7 @@ export default {
       name: 'preview',
       type: 'boolean',
       options: {
-        isHighlighted: true
+        isHighlighted: false
       }
     },
   ],

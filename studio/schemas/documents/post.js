@@ -15,6 +15,11 @@ export default {
       type: 'string',
     },
     {
+      title: 'SubtTitle',
+      name: 'subtitle',
+      type: 'string',
+    },
+    {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
@@ -26,38 +31,18 @@ export default {
       validation: Rule => Rule.required(),
     },
     {
-      name: 'location',
-      title: 'Location',
-      type: 'reference',
-      to: { type: 'location' },
-    },
-    {
-      name: 'locations',
-      title: 'Locations',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'location'}}],
-    },
-    {
       name: 'category',
       title: 'Category',
       type: 'reference',
       to: {type: 'category'},
     },
     {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
-    },
-    {
-      type: 'array',
-      name: 'authors',
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: 'author' }]
-        }
-      ]
+      name: 'index',
+      title: 'Teaser on the landing page – false / true / double / full',
+      type: 'string',
+      options: {
+        list: ['false', 'true', 'double', 'full'],
+      },
     },
     {
       title: 'Image',
@@ -68,15 +53,29 @@ export default {
       },
     },
     {
-      name: 'excerpt',
+      name: 'summary',
       title: 'Summary',
-      type: 'text',
-      validation: Rule => Rule.max(200).warning('The description shouln\'t be longer than 200 characters'),
+      type: 'inlineContent',
+      validation: Rule => Rule.max(500).warning('The description shouln\'t be longer than 500 characters'),
+    },
+    {
+      name: 'summaryfrom',
+      title: 'Summary on Mozaik page',
+      type: 'string',
+      options: {
+        list: ['auto', 'content', 'none'],
+      },
     },
     {
       title: 'Content',
       name: 'body',
       type: 'blockContent'
+    },
+    {
+      name: 'timeline',
+      title: 'Timeline',
+      type: 'array',
+      of: [{type: 'timeslot'}],
     },
     {
       name: 'publishedAt',
@@ -85,18 +84,20 @@ export default {
     }
   ],
   initialValue: {
+    index: 'false',
+    summaryfrom: 'auto'
     //slug: (doc => `${doc.title}-${doc._lang}`)
   },
   preview: {
     select: {
       title: 'title',
-      location: 'location.name',
+      category: 'category.title.hu',
       media: 'image'
     },
     prepare(selection) {
-      const {location} = selection
+      const {category} = selection
       return Object.assign({}, selection, {
-        subtitle: location && `📎 ${location}`,
+        subtitle: category && `📎 ${category}`,
       })
     },
   },

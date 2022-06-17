@@ -1,15 +1,30 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Wrapper from '../components/Wrapper.astro';
+export interface Props {
+  slug: Object;
+}
 
-let title = 'Vandals';
-let description = 'This is a starter repo for an blog built with Astro including open graph tags, canonical urls, RSS, sitemap support.';
-let permalink = 'https://www.vandals.hu/';
+import Mozaik from '../layouts/Mozaik.astro'
+
+import { client } from '../lib/sanityClient.js';
+//import { allCategoriesWithPosts } from '../lib/api.js';
+import { allPosts } from '../lib/api.js'; // for indexPosts
+//import { homePage } from '../lib/api.js';
+//const pages = await client.fetch(homePage);
+import { catPages } from '../lib/api.js'; // for Nav
+
+/*
+//export async function getStaticPaths() {
+  const paths = new Set();
+*/
+//  const pagess = await client.fetch(alllPages);
+//  console.log({pagess})
+  const pages = await client.fetch(catPages);
+  //home = pages[0] || {}
+  //console.log({pages})
+  const allBlogPosts = await client.fetch(allPosts);
+  const indexPosts = allBlogPosts?.filter((post) => post.index != 'false' && post._lang == 'hu')
+//console.log({pages})
+
 ---
 
-<BaseLayout title={title} description={description} permalink={permalink} canonicalURL={Astro.request.canonicalURL.href}>
-  <Wrapper>
-    <h1>Vandals of Balaton</h1>
-    <a href="/blog">Blog</a>
-  </Wrapper>
-</BaseLayout>
+<Mozaik page={pages[0]} pages={pages} posts={indexPosts} lang="hu" summaryfrom="auto"/>
