@@ -2,6 +2,7 @@
 // Component Imports
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 //import Debug from 'astro/debug'
 
 // Component Script:
@@ -23,6 +24,7 @@ const {meta, title, description, permalink, publishDate, ogImageUrl, canonicalUR
   <body>
     <Header {...Astro.props}/>
     <slot/>
+    <Footer {...Astro.props}/>
   </body>
 </html>
 

@@ -14,6 +14,16 @@ const serializers = {
       });
       return asset?.url && <a href={asset.url} target="_blank">{node.description}</a>
     },
+  },
+  marks: {
+    reef: ({value, children}) => {
+      const {_type, slug = {}, url} = value
+      const href = url ? url : `/${_type}/${slug.current}`
+      return <a href={href}>{children}</a>
+    },
+    ref: ({mark, children}) => {
+      return mark?.category?.slug ? <a href={`/${mark.category.slug['hu'].current}/${mark.slug.current}`}>{children}</a> : <span>{children}</span>
+    },
   }
 }
 

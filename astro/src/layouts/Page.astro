@@ -33,7 +33,7 @@ const { page, lang } = Astro.props
 
 {page?.body && 
 <article>
-  <SanityBlockContent blocks={page.body}/>
+  <SanityBlockContent blocks={page.body[lang]}/>
 </article>}
 
 {page?.timeline && 

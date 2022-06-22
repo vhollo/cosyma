@@ -2,9 +2,13 @@
 import Image from '../components/Image.astro'
 import Timeline from '../components/Timeline.astro'
 import SanityBlockContent from '../components/SanityBlockContent.jsx'
-//import Debug from 'astro/debug'
+import Debug from 'astro/debug'
 
 const { post } = Astro.props
+//post.galleries.map(g => console.log(g))
+//console.log('g',post.galleries)
+const imgsize = { "default": 360, "double": 720, "full": 1440 }
+const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
 
 <!--
@@ -30,6 +34,7 @@ const { post } = Astro.props
   <SanityBlockContent blocks={post.summary}/>
 </header>}
 
+<!--<Debug {post?.body}/>-->
 {post?.body && 
 <article>
   <SanityBlockContent blocks={post.body}/>
@@ -39,7 +44,107 @@ const { post } = Astro.props
 <article>
   <Timeline timeline={post.timeline} lang={post._lang}/>
 </article>}
+<!--
+{post?.galleries && 
+<section>
+{post.galleries?.map(gal => (
+  item.category ? (
+  <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
+    <h2>{item.title}</h2>
+    {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+    {item.subtitle && <h3>{item.subtitle}</h3>}
+    {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+  </a>
+  ) : (
+  <div class={item.size}>
+    <h2>{item.title}</h2>
+    {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+    {item.subtitle && <h3>{item.subtitle}</h3>}
+    {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+  </div>
+  )
+))}
+</section>
+}
+-->
 
+{post?.galleries?.map(gal => (
+  <!--<Debug {gal}/>-->
+  {gal.title && <h2>{gal.title}</h2>}
+  <section>
+  {gal.posts.map(item => (
+    <!--<Debug {item}/>-->
+    {item.weblink || item.category ? (
+    <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
+      <h2>{item.title}</h2>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+    </a>
+    ) : (
+    <div class={item.size}>
+      <h2>{item.title}</h2>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+    </div>
+    )}
+  ))}
+  </section>
+))}
+
+
+{post?.reltitle &&
+<h2>{post.reltitle}</h2>}
+
+{post?.relposts && 
+<section>
+  {post.relposts.map(item => (
+    item.weblink || item.category ? (
+    <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
+      <h3>{item.menutitle || item.title}</h3>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+    </a>
+    ) : (
+    <div class={item.size}>
+      <h3>{item.menutitle || item.title}</h3>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+    </div>
+    )
+  ))}
+</section>
+}
 
 <style>
+  @media screen and (orientation: landscape), screen and (min-width: 65ch) {
+    section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
+      grid-auto-flow: dense;
+    }
+  }
+  a, div {
+    margin-inline: auto;
+    max-width: max(50%,30ch);
+    padding: 0 2vw;
+    box-sizing: content-box;
+    transition: all .25s;
+    position: relative;
+    display: block;
+    border-radius: 0.35rem;
+    background-color: aliceblue;
+    box-shadow: var(--shadow) 0 0 .5rem;
+  }
+  .double {
+    grid-column-end: span 2;
+    /*grid-row-end: span 2;*/
+  }
+  a:hover, div:hover {
+    transform: scale(1.025);
+    box-shadow: var(--shadow) 0 0 1rem;
+  }
 </style>

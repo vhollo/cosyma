@@ -35,6 +35,7 @@ export default () =>
                 .icon(ArticleIcon),
             ])
         ),
+
       S.listItem()
         .title('Documents')
         .icon(DocumentIcon)
@@ -43,8 +44,9 @@ export default () =>
             .id('docs')
             .title('Documents')
             .items([
+
               S.listItem()
-                .title('Posts')
+                .title('Articles')
                 .id('posts')
                 .icon(PostIcon)
                 .schemaType('post')
@@ -60,6 +62,7 @@ export default () =>
                       return params.type === 'post'
                     })
                 ),
+                
               /*S.listItem()
                 .title('Pages')
                 .id('pages')

@@ -35,7 +35,9 @@ export default {
   ],
   preview: {
     select: {
-      title: "date1",
-    }
+      title: 'date1',
+      subtitle: 'date2',
+      image: 'image',
+    },
   },
 }

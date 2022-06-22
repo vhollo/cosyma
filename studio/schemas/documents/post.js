@@ -10,13 +10,13 @@ export default {
   i18n,
   fields: [
     {
-      title: 'Title',
-      name: 'title',
-      type: 'string',
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
     },
     {
-      title: 'SubtTitle',
-      name: 'subtitle',
+      title: 'Title',
+      name: 'title',
       type: 'string',
     },
     {
@@ -25,10 +25,21 @@ export default {
       type: 'slug',
       options: {
         source: 'title',
-        //source: doc => `${doc.title}-${doc._lang}`,
+        source: doc => `${doc.title}`,
         maxLength: 96,
       },
       validation: Rule => Rule.required(),
+    },
+    {
+      name: 'menutitle',
+      title: 'Menutitle',
+      type: 'string',
+      //validation: Rule => Rule.required(),
+    },
+    {
+      title: 'Subtitle',
+      name: 'subtitle',
+      type: 'string',
     },
     {
       name: 'category',
@@ -38,10 +49,15 @@ export default {
     },
     {
       name: 'index',
-      title: 'Teaser on the landing page – false / true / double / full',
+      title: 'Show teaser on landing page?',
+      type: 'boolean',
+    },
+    {
+      name: 'size',
+      title: 'Teaser size',
       type: 'string',
       options: {
-        list: ['false', 'true', 'double', 'full'],
+        list: ['default', 'double'],
       },
     },
     {
@@ -72,31 +88,56 @@ export default {
       type: 'blockContent'
     },
     {
+      name: 'galleries',
+      title: 'Galleries',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [
+          {type: 'gallery'}
+        ]
+      }],
+    },
+    {
+      title: 'Related posts title',
+      name: 'reltitle',
+      type: 'string',
+    },
+    {
+      name: 'relposts',
+      title: 'Related posts',
+      type: 'array',
+      of: [{
+        type: 'reference',
+        to: [
+          {type: 'post'}
+        ]
+      }],
+    },
+    {
       name: 'timeline',
       title: 'Timeline',
       type: 'array',
       of: [{type: 'timeslot'}],
     },
-    {
-      name: 'publishedAt',
-      title: 'Published at',
-      type: 'datetime',
-    }
   ],
   initialValue: {
-    index: 'false',
-    summaryfrom: 'auto'
-    //slug: (doc => `${doc.title}-${doc._lang}`)
+    index: false,
+    size: 'default',
+    summaryfrom: 'auto',
+    slug: doc => `${doc.title}`
   },
   preview: {
     select: {
       title: 'title',
-      category: 'category.title.hu',
+      menutitle: 'menutitle',
+      category: 'category.name.hu',
       media: 'image'
     },
     prepare(selection) {
-      const {category} = selection
+      const {title, menutitle, category} = selection
       return Object.assign({}, selection, {
+        title: title || menutitle,
         subtitle: category && `📎 ${category}`,
       })
     },

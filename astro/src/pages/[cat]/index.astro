@@ -37,15 +37,11 @@ export async function getStaticPaths() {
       filteredPosts.map(post => {
         post.cat = category.slug
       })
-      
-      //const page = category.pages?.filter((page) => page._lang == lang)
-      /*const page = pages?.filter((page) => page.slug[lang] == category.slug)
-
-      if (page[0]?.order == 'abc') {
+      if (category.order == 'abc') {
         filteredPosts.sort((a, b) => {
           return a.slug.current.localeCompare(b.slug.current)
         })
-      }*/
+      }
       //console.log('CATpage',page)
       paths.add({params: {cat: slug.current}, props: {lang: lang, pages: pages, posts: filteredPosts, page: category}})
       /*if (slug.current == 'hu') {

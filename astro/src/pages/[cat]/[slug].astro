@@ -36,10 +36,28 @@ export async function getStaticPaths({rss}) {
     slugs.forEach(([lang, slug]) => {
       //const filteredPosts = category.posts.filter((post) => post._lang == lang);
       const filteredPosts = category.posts?.filter((post) => post._lang == lang)
-      //console.log(filteredPosts)
+      /*  */
+      //console.log(slug.current)
+      if (category.order == 'abc') {
+        filteredPosts.sort((a, b) => {
+          return a.slug.current.localeCompare(b.slug.current)
+        })
+      }
       filteredPosts.map(post => {
+        //const subPosts = allBlogPosts.filter(p => p.category.slug[lang].current == post.slug.current && p._lang == lang) 
+        const subCat = allCategoryData.find(c => c.slug[lang].current == post.slug.current)
+        //console.log({subCat})
+        const subPosts = subCat?.posts?.filter((p) => p._lang == lang && p.slug.current !== post.slug.current)
+
+        //console.log({subCat})
+        
+        if (subCat?.order == 'abc') {
+          subPosts.sort((a, b) => {
+            return a.slug.current?.localeCompare(b.slug.current)
+          })
+        }
         post.cat = category.slug;
-        paths.add({params: {cat: slug.current, slug: post.slug.current},props: {lang: lang, pages: pages, page: category, posts: filteredPosts, post: post}})
+        paths.add({params: {cat: slug.current, slug: post.slug.current}, props: {lang: lang, pages: pages, page: subCat || category, posts: subPosts || filteredPosts, post: post}})
       })
     });
   })

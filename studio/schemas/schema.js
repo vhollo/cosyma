@@ -6,9 +6,9 @@ import openGraph from './objects/openGraph'
 import captionImage from './objects/captionImage'
 import blockContent from './objects/blockContent'
 import inlineContent from './objects/inlineContent'
-//import article from './documents/article'
 import category from './documents/category'
 import timeslot from './documents/timeslot'
+import gallery from './documents/gallery'
 import post from './documents/post'
 import page from './documents/page'
 
@@ -25,6 +25,7 @@ export default createSchema({
       captionImage,
       post,
       page,
+      gallery,
     ])
     // Include documents with field translation support.
     // This changes their structure, transforming

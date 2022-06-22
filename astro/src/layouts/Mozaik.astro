@@ -6,6 +6,8 @@ import Image from '../components/Image.astro'
 import Timeline from '../components/Timeline.astro'
 import SanityBlockContent from '../components/SanityBlockContent.jsx'
 
+import Debug from 'astro/debug'
+
 // Component Imports
 // import Header from '$lib/Header.astro'
 // You can import components from any supported Framework here!
@@ -17,19 +19,21 @@ import SanityBlockContent from '../components/SanityBlockContent.jsx'
 // All variables are available to use in the HTML template below.
 
 const { page, post, posts, summaryfrom, lang } = Astro.props
-//console.log('MOZAIK', page.body)
-//console.log('MOZAIK', page)
+//console.log('MOZAIK', ...page.body.hu)
+console.log('RELPOSTS', post?.relposts?.length)
+console.log('SUBPOSTS', post?.subposts?.length)
+console.log('GALLERIES', post?.galleries?.length)
 
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 
-const imgsize = { "false": 0, "true": 360, "double": 720, "full": 1440 }
-const ratio = { "false": 0, "true": 75, "double": 67, "full": 50 }
+const imgsize = { "default": 360, "double": 720, "full": 1440 }
+const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
 <Layout {...Astro.props} meta={page?.title}>
 
 <main>
-
+<!--<Debug {post}/>-->
 {post && <Post {post}/>}
 {!post && !!page && <Page {page} {lang}/>}
 
@@ -37,17 +41,15 @@ const ratio = { "false": 0, "true": 75, "double": 67, "full": 50 }
 
 {posts && 
 <section>
-  {posts.map(item => (
-  <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.index}>
-
-      <h2>{item.title}</h2>
-      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.image.index]} ratio={ratio[item.image.index]}/>}
+  {posts.map(item => item.slug.current != post?.slug.current && (
+  <a href={item.weblink || `/${item.category?.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
+      <h3>{item.menutitle || item.title}</h3>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
-      {!!item.summary && item.summary != 'none' && <SanityBlockContent blocks={item.summary}/>}
+      {!!item.summary && item.summaryfrom != 'none' && <SanityBlockContent blocks={item.summary}/>}
       {(summaryfrom == 'content' && !item.summary) && (
         <SanityBlockContent blocks={item.body} />
       )}
-    
   </a>
   ))}
 </section>}
@@ -57,20 +59,21 @@ const ratio = { "false": 0, "true": 75, "double": 67, "full": 50 }
   @media screen and (orientation: landscape), screen and (min-width: 65ch) {
     section {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(32ch, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
       grid-auto-flow: dense;
     }
   }
   a {
+    margin-inline: auto;
+    max-width: max(50%,29ch);
     padding: 0 2vw;
     box-sizing: content-box;
     transition: all .25s;
     position: relative;
     display: block;
     border-radius: 0.35rem;
-
     background-color: aliceblue;
-    box-shadow: lightgrey 0 0 .5rem;
+    box-shadow: var(--shadow) 0 0 .5rem;
   }
   a.double {
     grid-column-end: span 2;
@@ -78,35 +81,16 @@ const ratio = { "false": 0, "true": 75, "double": 67, "full": 50 }
   }
   a:hover {
     transform: scale(1.025);
-    box-shadow: lightgrey 0 0 1rem;
-  }
-
-  a:last-child {
-    margin-bottom: 5vh;
-  }
-
-  a:last-child > button {
-    bottom: 3vh;
-  }
-  a:nth-child(odd) > button {
-    right: 4vw;
-  }
-  a:nth-child(even) > button {
-    left: 4vw;
-  }
-
-  h3, h4, h5, h6 {
-    /*padding: 2vh 4vw;*/
-    text-align: start;
-    padding-inline: 0;
+    box-shadow: var(--shadow) 0 0 1rem;
   }
   
   /*img {
     box-shadow: dimgrey 0 0 .5rem;
   }*/
-	section img {
+	/*section img {
 		margin: 0 0 1rem;
-    box-shadow: lightgrey 0 0 0.25rem;
+    box-shadow: var(--shadow) 0 0 0.25rem;
     border-radius: 0.125rem;
-	}
+    --shadow: hsl(207deg 50% 66% / 50%);
+	}*/
 </style>

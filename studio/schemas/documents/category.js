@@ -8,8 +8,9 @@ export default {
   fields: [
     {
       name: 'name',
-      title: 'name',
+      title: 'Name',
       type: 'string',
+      validation: Rule => Rule.required(),
     },
     {
       name: 'slug',
@@ -17,6 +18,7 @@ export default {
       type: 'slug',
       options: {
         maxLength: 96,
+        source: `name.${baseLanguage.name}`
       },
       validation: Rule => Rule.required(),
     },
@@ -31,7 +33,7 @@ export default {
       name: 'menutitle',
       title: 'Menutitle',
       type: 'string',
-      validation: Rule => Rule.required(),
+      //validation: Rule => Rule.required(),
     },
     {
       name: 'title',

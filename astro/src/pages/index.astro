@@ -18,13 +18,13 @@ import { catPages } from '../lib/api.js'; // for Nav
 */
 //  const pagess = await client.fetch(alllPages);
 //  console.log({pagess})
-  const pages = await client.fetch(catPages);
-  //home = pages[0] || {}
+  const pages = await client.fetch(catPages)
+  const home = pages?.filter(p => p.index >= 0).shift() || {}
   //console.log({pages})
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter((post) => post.index != 'false' && post._lang == 'hu')
-//console.log({pages})
+  const indexPosts = allBlogPosts?.filter((post) => post.index && post._lang == 'hu')
+  //console.log({indexPosts})
 
 ---
 
-<Mozaik page={pages[0]} pages={pages} posts={indexPosts} lang="hu" summaryfrom="auto"/>
+<Mozaik page={home} pages={pages} posts={indexPosts} lang="hu" summaryfrom="auto"/>
