@@ -13,6 +13,7 @@ export async function getStaticPaths({rss}) {
   const pages = await client.fetch(catPages);
   const allBlogPosts = await client.fetch(allPosts);
   //console.log(allBlogPosts)
+/*
   rss({
     title: 'Example Blog',
     description: 'An example blog on Astro',
@@ -24,6 +25,7 @@ export async function getStaticPaths({rss}) {
       pubDate: item.publishedAt,
     })),
   });
+*/
         //const pp = Object.entries(allBlogPosts)
         //allBlogPosts.forEach(p => console.log(p.category.slug['hu'].current, p.title))
         //console.log('---')
