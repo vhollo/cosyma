@@ -12,11 +12,11 @@ const home = p?.shift() || {}
 ---
 <nav>
     <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
-      <img src="/assets/csh_white.svg" alt=""/>
+      <img src="/assets/csh_white_notxt.svg" alt=""/>
     </a>
-    <!--<a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
+    <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
       <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
-    </a>-->
+    </a>
     <!--<div>HU | EN</div>-->
     {p?.length && <ul>
         {p.map(item => (
@@ -58,6 +58,7 @@ const home = p?.shift() || {}
     align-items: center;
     padding-block: 1rem;
     overflow: visible;
+    backdrop-filter: blur(4px);
   }
   nav a, nav span {
     display: block;
@@ -67,21 +68,23 @@ const home = p?.shift() || {}
   }
   nav > a {
     flex-grow: 0;
+  }
+  nav > a:first-of-type {
     padding-left: 1rem;
   }
   nav > a:last-of-type {
     /*flex-grow: 0;
     display: flex;
     align-items: center;*/
-    padding-right: 5rem;
+    margin-left: -1ch;
+    /*padding-right: 5rem;*/
   }
   nav > a img {
     display: block;
     /*width: 4rem;*/
-    width: 10rem;
+    width: 4rem;
     /*padding: 0 0 2rem;*/
     margin: -.5rem 0 .5rem;
-    filter: invert(1);
   }
   nav h1 {
     text-align: end;
@@ -115,6 +118,7 @@ const home = p?.shift() || {}
   nav > ul {
     flex-direction: row;
     flex-wrap: nowrap;
+    gap: 1ch;
     height: 100%;
     align-items: center;
     margin: 0 auto;
@@ -125,11 +129,21 @@ const home = p?.shift() || {}
     width: max-content;
     height: auto;
     margin: 0;
-    background-color: var(--lighter);
+    /*background-color: var(--lighter);*/
+    /*backdrop-filter: brightness(0.9);*/
     display: none;
+    border-left: 3px solid;
+    border-bottom: 3px solid;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    margin-left: -3px;
   }
   ul li:focus-within ul, ul li:hover ul {
     display: initial;
+  }
+
+  nav > ul > li:last-child {
+    width: 4rem;
   }
 
   nav > ul > li {
@@ -137,6 +151,14 @@ const home = p?.shift() || {}
     font-size: larger;
     position: relative;
   }
+  nav > ul > li:focus-within, nav > ul > li:hover {
+    border-left: 3px solid;
+    border-top-left-radius: 0.5rem;
+  }
+  nav > ul > li:focus-within, nav > ul > li:hover {
+    margin-left: -3px;
+  }
+  
   li a, li span {
     padding: .5rem 1rem;
   }
@@ -144,12 +166,13 @@ const home = p?.shift() || {}
   details {
     position: absolute;
     top: -1.8em;
-    right: -4.5em;
-    background-color: var(--lighter);
-    border-width: medium;
+    /*right: -4.5em;*/
+    border-left-width: 3px;
+    border-top-width: 3px;
     border-radius: 0.5rem;
     margin: 1rem;
     cursor:default;
+    backdrop-filter: blur(4px);
   }
   summary {
     list-style: none;
