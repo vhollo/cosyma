@@ -1,22 +1,16 @@
 ---
-const { pages, lang } = Astro.props;
+import Debug from 'astro/debug'
 
+const { pages, lang } = Astro.props;
 /*let home
 home = home || pages?.shift() || {}*/
 //const p = pages.slice()
 const p = pages?.slice().filter(item => item.index >= 0) || []
 //console.log({p})
 const home = p?.shift() || {}
-//console.log({p})
+//console.log(lang, p[2])
 ---
 <nav>
-  <details>
-    <summary>⚑</summary>
-    <a href="/">Magyar</a>
-    <a href="/en">English</a>
-    <a href="/de">Deutsch</a>
-  </details>
-  <div>
     <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
       <img src="/assets/csh_white.svg" alt=""/>
     </a>
@@ -24,69 +18,64 @@ const home = p?.shift() || {}
       <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
     </a>-->
     <!--<div>HU | EN</div>-->
-    {p?.length && <div>
-      <ul>
-        {p.map(item => (/// && item.index
-        <li><a href={`/${item.slug[lang].current}`}>{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.category[lang] || '?!?'}</a></li>
+    {p?.length && <ul>
+        {p.map(item => (
+        <li>
+        {item.link ? <a href={`/${item.slug[lang].current}`}>{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.name[lang] || '?!?'}</a> : <span tabindex="0">{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.name[lang] || '?!?'}</span>}
+          {item.dropdown && item.menu?.length && <ul>
+            {item.menu.map(sub => (
+            <li><a href={`/${item.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a></li>
+            ))}
+          </ul>}
+        </li>
         ))}
-        <li></li>
-      </ul>
-    </div>}
+        <li>
+          <details>
+            <summary>⚑</summary>
+            <a href="/">Magyar</a>
+            <a href="/en">English</a>
+            <a href="/de">Deutsch</a>
+          </details>
+        </li>
+      </ul>}
         <!--<li><a href="/">Jelentkezés</a></li>
         <li><a href="/">Előadások</a></li>-->
-  </div>
 </nav>
 
 <style>
   nav {
-    /*background-image: url('/assets/header_red.png'), url('/assets/header_green.png');
-    background-position: top, bottom;
-    background-size: 100% 2rem, 100% 2rem, cover;
-    background-repeat: no-repeat;*/
     margin-bottom: 2rem;
-    /*margin-inline: auto;*/
     line-height: 1.15;
-  }
-  details {
-    position: absolute;
-    background-color: var(--lighter);
-    border-width: medium;
-    border-radius: 0.5rem;
-    margin: 1rem;
-    cursor:default;
-  }
-  summary {
-    list-style: none;
-    font-size: xx-large;
-    padding: 0 0.5rem;
-  }
-  details a {
-    padding: .25rem .5rem;
-  }
-  nav > div {
+  /*}
+  nav > div {*/
     width: min(100%, 128ch);
     overflow-x: auto;
-    margin-inline: var(--gutter2);
+    /*margin-inline: var(--gutter2);*/
     margin-inline: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    align-items: center;
     padding-block: 1rem;
+    overflow: visible;
   }
-  nav a {
+  nav a, nav span {
     display: block;
   }
-  nav div > a:first-of-type {
+  nav span {
+    cursor: default;
+  }
+  nav > a {
     flex-grow: 0;
     padding-left: 1rem;
   }
-  nav div > a:last-of-type {
+  nav > a:last-of-type {
     /*flex-grow: 0;
     display: flex;
     align-items: center;*/
     padding-right: 5rem;
   }
-  nav div > a img {
+  nav > a img {
     display: block;
     /*width: 4rem;*/
     width: 10rem;
@@ -106,31 +95,71 @@ const home = p?.shift() || {}
     font-variant: common-ligatures small-caps; 
     font-style: italic;
   }
-  nav h1 :global(span) {
+  /*nav h1 :global(span) {
     display: block;
-  }
-  div div {
+  }*/
+  /*div div {
     background-image: url('/assets/header_notes_wide.png');
     background-position: left center;
     background-size: cover;
     background-repeat: no-repeat;
     margin-block: -1rem;
     flex-grow: 1;
-  }    
+    padding-inline: 2ch;
+  }    */
   ul {
     display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  nav > ul {
     flex-direction: row;
     flex-wrap: nowrap;
-    list-style: none;
-    align-items: center;
-    margin: 0;
     height: 100%;
+    align-items: center;
+    margin: 0 auto;
   }
-  ul li {
+  ul ul {
+    flex-direction: column;
+    position: absolute;
+    width: max-content;
+    height: auto;
+    margin: 0;
+    background-color: var(--lighter);
+    display: none;
+  }
+  ul li:focus-within ul, ul li:hover ul {
+    display: initial;
+  }
+
+  nav > ul > li {
     /*padding-inline-end: 2rem;*/
     font-size: larger;
+    position: relative;
   }
-  ul a {
+  li a, li span {
     padding: .5rem 1rem;
   }
+
+  details {
+    position: absolute;
+    top: -1.8em;
+    right: -4.5em;
+    background-color: var(--lighter);
+    border-width: medium;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    cursor:default;
+  }
+  summary {
+    list-style: none;
+    list-style-type: none;
+    font-size: xx-large;
+    padding: 0 0.5rem;
+  }
+  summary::-webkit-details-marker {display: none; }
+  details a {
+    padding: .25rem .5rem;
+  }
+
 </style>

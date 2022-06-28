@@ -8,9 +8,13 @@ import Mozaik from '../layouts/Mozaik.astro'
 import { client } from '../lib/sanityClient.js';
 //import { allCategoriesWithPosts } from '../lib/api.js';
 import { allPosts } from '../lib/api.js'; // for indexPosts
+import { allCategoriesWithPosts } from '../lib/api.js';
+
+const allCategoryData = await client.fetch(allCategoriesWithPosts);
+const lang = 'hu'
 //import { homePage } from '../lib/api.js';
 //const pages = await client.fetch(homePage);
-import { catPages } from '../lib/api.js'; // for Nav
+//import { catPages } from '../lib/api.js'; // for Nav
 
 /*
 //export async function getStaticPaths() {
@@ -18,13 +22,26 @@ import { catPages } from '../lib/api.js'; // for Nav
 */
 //  const pagess = await client.fetch(alllPages);
 //  console.log({pagess})
-  const pages = await client.fetch(catPages)
-  const home = pages?.filter(p => p.index >= 0).shift() || {}
+  //const pages = await client.fetch(catPages)
+  const home = allCategoryData?.filter(p => p.index >= 0).shift() || {}
   //console.log({pages})
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter((post) => post.index && post._lang == 'hu')
+  const indexPosts = allBlogPosts?.filter((post) => post.index && post._lang == lang)
   //console.log({indexPosts})
+
+  // Prepare Menuitems (on every post)
+  const menu = allCategoryData.slice()
+  menu.map(cat => {
+    let fPosts
+    fPosts = cat.posts?.filter(post => post._lang == lang);
+    if (cat.abc || cat.order == 'abc') {
+      fPosts.sort((a, b) => {
+        return a.slug.current.localeCompare(b.slug.current)
+      })
+    }
+    cat.menu = fPosts
+  })
 
 ---
 
-<Mozaik page={home} pages={pages} posts={indexPosts} lang="hu" summaryfrom="auto"/>
+<Mozaik page={home} pages={menu} posts={indexPosts} {lang} summaryfrom="auto"/>

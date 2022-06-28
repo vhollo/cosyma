@@ -1,13 +1,26 @@
 export const catPages = `
 *[_type == 'category' && !(_id match "drafts*")]{
   ...,
+  //dropdown[]->{
+    //slug, title, _lang, _id
+  //},
+  //"dropdown": 
+    //*[_type == 'post' && (category._ref match ^._id)]{
+      //...,
+      //"posts": dropdown[]->{..., slug, title, _lang},
+  //},
+  //dropdown[]->{
+  //  slug, title, _lang, _id,
+  //  "posts": *[_type == 'post' && (^._id in _id)]{
+  //},
+
   'category': name
 } | order(index asc)`;
 
 export const allPosts = `
 *[_type == 'post']{...,
-  category->{slug, 'category': name},
-  relposts[]->{..., category->{slug, 'category': name}},
+  category->{slug, name},
+  relposts[]->{..., category->{slug, name}},
   galleries[]->{..., gallery->{..., posts[]->{..., slug, 'category': name}}},
   _langRefs,
   !(_id match "i18n*") => {
@@ -61,6 +74,8 @@ export const allCategoriesWithPosts = `
         }.matches
     }
   } | order(publishedAt desc), 
+  
+  // DEL:
   "pages": *[_type == "page" && references(^._id) && !(_id match "drafts*")]
   {
     ..., 

@@ -23,63 +23,50 @@ export default () =>
   S.list()
     .title('Content')
     .items([
-      S.listItem()
-        .title('Settings')
-        .icon(FieldIcon)
-        .child(
-          S.list()
-            .id('settings')
-            .title('Settings')
-            .items([
-              S.documentTypeListItem('category')
-                .icon(ArticleIcon),
-            ])
-        ),
+      S.documentTypeListItem('category')
+        .icon(ArticleIcon),
+      //S.listItem()
+      //  .title('Settings')
+      //  .icon(FieldIcon)
+      //  .child(
+      //    S.list()
+      //      .id('settings')
+      //      .title('Settings')
+      //      .items([
+      //        S.documentTypeListItem('category')
+      //          .icon(ArticleIcon),
+      //      ])
+      //  ),
 
       S.listItem()
-        .title('Documents')
-        .icon(DocumentIcon)
-        .child(
-          S.list()
-            .id('docs')
-            .title('Documents')
-            .items([
+      .title('Posts By Category')
+      .child(
+        S.documentTypeList('category')
+          .title('Posts by Category')
+          .child(categoryId =>
+            S.documentList()
+              .title('Posts')
+              .filter('_type == "post" && $categoryId == category._ref')
+              .params({ categoryId })
+          )
+      ),
 
-              S.listItem()
-                .title('Articles')
-                .id('posts')
-                .icon(PostIcon)
-                .schemaType('post')
-                .child(
-                  S.documentList()
-                    .id('post')
-                    .title('Post')
-                    // Use a GROQ filter to get documents.
-                    .filter('_type == "post" && (!defined(_lang) || _lang == $baseLang)')
-                    .params({ baseLang: i18n.base })
-                    .canHandleIntent((_name, params, _context) => {
-                      // Assume we can handle all intents (actions) regarding post documents
-                      return params.type === 'post'
-                    })
-                ),
-                
-              /*S.listItem()
-                .title('Pages')
-                .id('pages')
-                .icon(ArticleIcon)
-                .schemaType('page')
-                .child(
-                  S.documentList()
-                    .id('page')
-                    .title('Page')
-                    // Use a GROQ filter to get documents.
-                    .filter('_type == "page" && (!defined(_lang) || _lang == $baseLang)')
-                    .params({ baseLang: i18n.base })
-                    .canHandleIntent((_name, params, _context) => {
-                      // Assume we can handle all intents (actions) regarding page documents
-                      return params.type === 'page'
-                    })
-                ),*/
-            ]),
-        ),
-    ])
+      S.listItem()
+      .title('Posts & assets')
+      .id('posts')
+      .icon(PostIcon)
+      .schemaType('post')
+      .child(
+        S.documentList()
+          .id('post')
+          .title('Post')
+          // Use a GROQ filter to get documents.
+          .filter('_type == "post" || _type == "image"')
+          // && category == null && (!defined(_lang) || _lang == $baseLang)
+          .params({ baseLang: i18n.base })
+          .canHandleIntent((_name, params, _context) => {
+            // Assume we can handle all intents (actions) regarding post documents
+            return params.type === 'post'
+          })
+      ),
+])

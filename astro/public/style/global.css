@@ -169,11 +169,11 @@ header, blockquote {
 }
 
 blockquote {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   text-align: start;
   margin-inline: auto;
   width: fit-content;
-  border-bottom: 2px solid;
+  /*border-bottom: 2px solid;*/
 }
 
 article em, article i {

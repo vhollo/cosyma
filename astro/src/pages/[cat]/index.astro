@@ -9,15 +9,16 @@ import { client } from '../../lib/sanityClient.js';
 import { allCategoriesWithPosts } from '../../lib/api.js';
 import { allPosts } from '../../lib/api.js';
 import { catPages } from '../../lib/api.js';
-//import { alllPages } from '../../lib/api.js';
 
 export async function getStaticPaths() {
   const paths = new Set();
 
-//  const pagess = await client.fetch(alllPages);
-//  console.log({pagess})
-  const pages = await client.fetch(catPages);
-//  console.log({pages})
+  // Collect Menuitems (once)
+  //const pages = await client.fetch(catPages);
+  //const pages = await client.fetch(allCategoriesWithPosts);
+  //console.log({pages})
+
+  // Collect indexPosts
   const allBlogPosts = await client.fetch(allPosts);
   const indexPosts = allBlogPosts?.filter((post) => post.index != 'false')
   /*indexPosts.map(post => {
@@ -25,6 +26,7 @@ export async function getStaticPaths() {
     post.cat = post.category.slug
   })*/
   
+  // Prepare all post pages
   const allCategoryData = await client.fetch(allCategoriesWithPosts);
   allCategoryData.map(category => {
   //console.log(category.slug)
@@ -37,13 +39,27 @@ export async function getStaticPaths() {
       filteredPosts.map(post => {
         post.cat = category.slug
       })
-      if (category.order == 'abc') {
+      if (category.abc || category.order == 'abc') {
         filteredPosts.sort((a, b) => {
           return a.slug.current.localeCompare(b.slug.current)
         })
       }
-      //console.log('CATpage',page)
-      paths.add({params: {cat: slug.current}, props: {lang: lang, pages: pages, posts: filteredPosts, page: category}})
+
+      // Prepare Menuitems (on every post)
+      const menu = allCategoryData.slice()
+      menu.map(cat => {
+        let fPosts
+        if (lang == slug.current) fPosts = indexPosts.filter(post => post._lang == lang)
+        else fPosts = cat.posts?.filter(post => post._lang == lang);
+        if (cat.abc || cat.order == 'abc') {
+          fPosts.sort((a, b) => {
+            return a.slug.current.localeCompare(b.slug.current)
+          })
+        }
+        cat.menu = fPosts
+      })
+
+      paths.add({params: {cat: slug.current}, props: {lang: lang, pages: menu, posts: filteredPosts, page: category}})
       /*if (slug.current == 'hu') {
         slug.current = undefined;
         paths.add({params: {cat: slug.current}, props: {lang: lang, pages: pages, posts: filteredPosts, page: page[0]}})
@@ -56,7 +72,7 @@ export async function getStaticPaths() {
 }
 
 //const { page, pages, posts } = Astro.props
-//console.log({posts})
+//console.log(pages)
 ---
 
 <Mozaik {...Astro.props} summaryfrom="auto"/>

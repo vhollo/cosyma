@@ -124,21 +124,22 @@ export default {
   initialValue: {
     index: false,
     size: 'default',
-    summaryfrom: 'auto',
-    slug: doc => `${doc.title}`
+    summaryfrom: 'auto'
   },
   preview: {
     select: {
       title: 'title',
+      slug: 'slug.current',
       menutitle: 'menutitle',
-      category: 'category.name.hu',
+      category: 'category.name',
+      lang: '_lang',
       media: 'image'
     },
     prepare(selection) {
-      const {title, menutitle, category} = selection
+      const {title, menutitle, category, lang, slug} = selection
       return Object.assign({}, selection, {
-        title: title || menutitle,
-        subtitle: category && `📎 ${category}`,
+        title: title || menutitle || slug,
+        subtitle: category && `📎 ${category[lang]} (${lang})`,
       })
     },
   },

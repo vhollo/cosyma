@@ -17,8 +17,7 @@ export default {
       title: 'Slug',
       type: 'slug',
       options: {
-        maxLength: 96,
-        source: `name.${baseLanguage.name}`
+        maxLength: 96
       },
       validation: Rule => Rule.required(),
     },
@@ -34,6 +33,36 @@ export default {
       title: 'Menutitle',
       type: 'string',
       //validation: Rule => Rule.required(),
+    },
+    //{
+    //  name: 'dropdown',
+    //  title: 'Menu dropdown',
+    //  type: 'array',
+    //  of: [{
+    //    type: 'reference',
+    //    to: [
+    //      {type: 'post'}
+    //    ]
+    //  }],
+    //  localize: false,
+    //},
+    {
+      name: 'dropdown',
+      title: 'Dropdown menu?',
+      type: 'boolean',
+      localize: false,
+    },
+    {
+      name: 'link',
+      title: 'Menu links to page?',
+      type: 'boolean',
+      localize: false,
+    },
+    {
+      name: 'abc',
+      title: 'Sort posts by ABC?',
+      type: 'boolean',
+      localize: false,
     },
     {
       name: 'title',
@@ -64,16 +93,12 @@ export default {
       name: 'body',
       type: 'blockContent'
     },
-    {
-      name: 'order',
-      title: 'Order of posts',
-      type: 'string',
-      options: {
-        list: ['date', 'abc'],
-      },
-      localize: false,
-    },
   ],
+  initialValue: {
+    abc: false,
+    dropdown: false,
+    link: true
+  },
   preview: {
     select: {
       title: "name",
