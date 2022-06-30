@@ -4,9 +4,9 @@ import Timeline from '../components/Timeline.astro'
 import SanityBlockContent from '../components/SanityBlockContent.jsx'
 import Debug from 'astro/debug'
 
-const { post } = Astro.props
+const { post, lang } = Astro.props
 //post.galleries.map(g => console.log(g))
-//console.log('g',post.galleries)
+//console.log(SanityBlockContent({"blocks":post.summary}))
 const imgsize = { "default": 360, "double": 720, "full": 1440 }
 const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
@@ -42,7 +42,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 
 {post?.timeline && 
 <article>
-  <Timeline timeline={post.timeline} lang={post._lang}/>
+  <Timeline timeline={post.timeline} {lang}/>
 </article>}
 <!--
 {post?.galleries && 
@@ -92,6 +92,14 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
   ))}
   </section>
 ))}
+<aside>
+  Cikk megosztása:
+    <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Twitter</a>
+    <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Facebook</a>
+    <!--<a href={`https://www.facebook.com/dialog/share?app_id=5064192827001864&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer`} rel="external noopener" target="_blank">Facebook</a>-->
+    <a href={`mailto:?subject=${post.title}%20–%20cosyma.hu&body=${post.title}%0A%0A%0A%0Ahttps://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Email</a>
+    <a href="/blog/rss.xml" rel="external noopener" target="_blank">RSS</a>
+</aside>
 
 <!--
 {post?.reltitle &&
@@ -127,7 +135,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
       grid-auto-flow: dense;
     }
   }
-  a, div {
+  section a, section div {
     margin-inline: auto;
     max-width: max(50%,30ch);
     padding: 0 2vw;
@@ -136,15 +144,20 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
     position: relative;
     display: block;
     border-radius: 0.35rem;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
     box-shadow: var(--shadow) 0 0 .5rem;
   }
   .double {
     grid-column-end: span 2;
     /*grid-row-end: span 2;*/
   }
-  a:hover, div:hover {
+  a:hover, section div:hover {
     transform: scale(1.025);
     box-shadow: var(--shadow) 0 0 1rem;
+  }
+  aside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2ch;
   }
 </style>

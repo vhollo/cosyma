@@ -53,6 +53,11 @@ export default {
       type: 'boolean',
     },
     {
+      title: 'Weblink?',
+      name: 'weblink',
+      type: 'url',
+    },
+    {
       name: 'size',
       title: 'Teaser size',
       type: 'string',

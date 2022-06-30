@@ -34,7 +34,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 
 <main>
 <!--<Debug {post}/>-->
-{post && <Post {post}/>}
+{post && <Post {post} {lang}/>}
 {!post && !!page && <Page {page} {lang}/>}
 
 </main>

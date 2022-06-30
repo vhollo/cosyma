@@ -74,6 +74,7 @@ body {
   color: var(--light);
   filter: hue-rotate(5deg) contrast(1.1);
   /*padding-top: 1rem;*/
+  padding-bottom: 8ch;
 }
 
 /*@media (prefers-color-scheme: dark) {
@@ -201,7 +202,7 @@ h1, h2, h3, h4, h5, h6 {
   text-rendering: geometricPrecision;
   color: var(--lighter);
 }
-section h1, section h2, section h3, section h4, section h5, section h6 {
+section h1, section h2, section h3, section h4, section h5, section h6, section * {
   /*line-height: 1.25em;*/
   color: var(--midtone);
   text-shadow: 0 0 1px var(--shadow);

@@ -38,7 +38,7 @@ function ArticleSchema({title, permalink, publishDate, ogImageUrl, description})
         "description": `${description}`,
             "mainEntityOfPage": {
                 "@type": "WebPage",
-                "@id": `${site.url}/blog/`
+                "@id": `${site.url}/`
             }
         }
     return (

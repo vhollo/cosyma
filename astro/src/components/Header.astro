@@ -44,12 +44,11 @@ const home = p?.shift() || {}
 
 <style>
   nav {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     line-height: 1.15;
   /*}
   nav > div {*/
     width: min(100%, 128ch);
-    overflow-x: auto;
     /*margin-inline: var(--gutter2);*/
     margin-inline: auto;
     display: flex;
@@ -57,7 +56,8 @@ const home = p?.shift() || {}
     flex-wrap: nowrap;
     align-items: center;
     padding-block: 1rem;
-    overflow: visible;
+    overflow: auto visible;
+    /*overflow-x: auto;*/
     backdrop-filter: blur(4px);
   }
   nav a, nav span {
@@ -82,7 +82,7 @@ const home = p?.shift() || {}
   nav > a img {
     display: block;
     /*width: 4rem;*/
-    width: 4rem;
+    width: 4.5rem;
     /*padding: 0 0 2rem;*/
     margin: -.5rem 0 .5rem;
   }
@@ -154,8 +154,6 @@ const home = p?.shift() || {}
   nav > ul > li:focus-within, nav > ul > li:hover {
     border-left: 3px solid;
     border-top-left-radius: 0.5rem;
-  }
-  nav > ul > li:focus-within, nav > ul > li:hover {
     margin-left: -3px;
   }
   
@@ -166,7 +164,7 @@ const home = p?.shift() || {}
   details {
     position: absolute;
     top: -1.8em;
-    /*right: -4.5em;*/
+    right: -4.5em;
     border-left-width: 3px;
     border-top-width: 3px;
     border-radius: 0.5rem;
