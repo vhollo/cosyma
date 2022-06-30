@@ -5,26 +5,29 @@ const { pages, lang } = Astro.props;
 /*let home
 home = home || pages?.shift() || {}*/
 //const p = pages.slice()
-const p = pages?.slice().filter(item => item.index >= 0) || []
+const p = pages?.slice().filter(cat => cat.index >= 0) || []
 //console.log({p})
 const home = p?.shift() || {}
 //console.log(lang, p[2])
 ---
 <nav>
-    <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
+    <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
       <img src="/assets/csh_white_notxt.svg" alt=""/>
     </a>
-    <a href={`/${home.slug[lang]?.current == 'hu' ? '' : home.slug[lang]?.current}`}>
+    <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
       <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
     </a>
     <!--<div>HU | EN</div>-->
     {p?.length && <ul>
-        {p.map(item => (
+        {p.map(cat => (
         <li>
-        {item.link ? <a href={`/${item.slug[lang].current}`}>{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.name[lang] || '?!?'}</a> : <span tabindex="0">{item.menutitle && (item.menutitle[lang]) || (item.title && item.title[lang]) || item.name[lang] || '?!?'}</span>}
-          {item.dropdown && item.menu?.length && <ul>
-            {item.menu.map(sub => (
-            <li><a href={`/${item.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a></li>
+        {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</span>}
+          {cat.dropdown && cat.menu?.length && <ul>
+            {cat.posts.map(sub => (
+            <li>
+        {console.log({sub})}
+              <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
+            </li>
             ))}
           </ul>}
         </li>
@@ -44,7 +47,7 @@ const home = p?.shift() || {}
 
 <style>
   nav {
-    margin-bottom: 3rem;
+    margin-bottom: 7rem;
     line-height: 1.15;
   /*}
   nav > div {*/
@@ -58,7 +61,9 @@ const home = p?.shift() || {}
     padding-block: 1rem;
     /*overflow: visible;
     overflow-x: hidden;*/
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
   }
   nav a, nav span {
     display: block;
@@ -75,7 +80,7 @@ const home = p?.shift() || {}
   nav > a:last-of-type {
     /*flex-grow: 0;
     display: flex;
-    align-items: center;*/
+    align-cats: center;*/
     margin-left: -1ch;
     /*padding-right: 5rem;*/
   }
@@ -120,7 +125,7 @@ const home = p?.shift() || {}
     flex-wrap: nowrap;
     gap: 1ch;
     height: 100%;
-    align-items: center;
+    align-cats: center;
     margin: 0 auto;
   }
   ul ul {
@@ -144,7 +149,9 @@ const home = p?.shift() || {}
 
   nav > ul > li:last-child {
     width: 4rem;
+    margin-left: -3px;
   }
+
 
   nav > ul > li {
     /*padding-inline-end: 2rem;*/

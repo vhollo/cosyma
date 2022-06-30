@@ -1,3 +1,9 @@
+---
+import Debug from 'astro/debug'
+
+const { pages, lang, post } = Astro.props;
+---
+
 <footer>
 <dl>
   <dt>Collegium Symphonicum Hungaricum</dt>
@@ -13,12 +19,24 @@
     </row>
   </dd>
 </dl>
+<dl>
+  <dt>Cikk megosztása</dt>
+    <dd>
+      <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${post?.cat[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Twitter</a>
+      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${post?.cat[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Facebook</a>
+      <!--<a href={`https://www.facebook.com/dialog/share?app_id=5064192827001864&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer`} rel="external noopener" target="_blank">Facebook</a>-->
+      <a href={`mailto:?subject=${post?.title}%20–%20cosyma.hu&body=${post?.title}%0A%0A%0A%0Ahttps://www.cosyma.hu/${post?.cat[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Email</a>
+      <a href="/blog/rss.xml" rel="external noopener" target="_blank">RSS</a>
+    </dd>
+</dl>
+
 </footer>
 <style>
   footer {
-    padding: 16ch 2ch 1ch;
-    position: absolute;
-    bottom: 0;
+    padding: 8ch 2ch 1ch;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    bottom: -3em;
   }
   dl {
     /*display: flex;*/
@@ -27,10 +45,11 @@
   dt {
     font-family: 'Alegreya SC', serif;
   }
-  dd {
+  footer, dd {
     display: flex;
     gap: 2ch;
     padding-block: 1ch;
+    justify-content: space-between;
   }
   column {
     display: inline-flex;
@@ -53,4 +72,13 @@
   svg {
     fill: var(--light);
   }
+
+  aside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2ch;
+    margin: 0.67em 0;
+    align-content: inherit;
+  }
+
 </style>

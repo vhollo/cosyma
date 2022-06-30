@@ -26,14 +26,13 @@ const lang = 'hu'
   const home = allCategoryData?.filter(p => p.index >= 0).shift() || {}
   //console.log({pages})
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter((post) => post.index && post._lang == lang)
+  const indexPosts = allBlogPosts?.filter(p => p.index && p._lang == lang)
   //console.log({indexPosts})
 
   // Prepare Menuitems (on every post)
-  const menu = allCategoryData.slice()
-  menu.map(cat => {
-    let fPosts
-    fPosts = cat.posts?.filter(post => post._lang == lang);
+  const cats = allCategoryData.slice()
+  cats.map(cat => {
+    const fPosts = cat.posts?.filter(p => p._lang == lang);
     if (cat.abc || cat.order == 'abc') {
       fPosts.sort((a, b) => {
         return a.slug.current.localeCompare(b.slug.current)
@@ -44,4 +43,4 @@ const lang = 'hu'
 
 ---
 
-<Mozaik page={home} pages={menu} posts={indexPosts} {lang} summaryfrom="auto"/>
+<Mozaik page={home} pages={cats} posts={indexPosts} {lang} summaryfrom="auto"/>
