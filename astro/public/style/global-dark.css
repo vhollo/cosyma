@@ -37,12 +37,12 @@
 
   --figurewidth: 80ch;
 
-  --darkgray: #0f2537;
-  --midtone: #1f4667;
+  --darkgray: hsl(207, 0%, 14%);
+  --midtone: hsl(207, 0%, 26%);
   --light: #e2e8f0;
   --lighter: #f9fafb;
   --grad: hsl(207deg 50% 66%);
-  --shadow: #0f25374d;
+  --shadow: hsla(207, 0%, 14%, 0.302);
   --bg: #1f46670a;
 }
 

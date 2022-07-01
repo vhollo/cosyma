@@ -64,6 +64,7 @@ const home = p?.shift() || {}
     position: sticky;
     top: 0;
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     /*filter: drop-shadow(1px 2px 3px black);*/
     background-color: var(--shadow);
   }
@@ -152,6 +153,7 @@ const home = p?.shift() || {}
   nav > ul > li:last-child {
     width: 4rem;
     margin-left: -3px;
+    border-left: none!important;
   }
 
 
