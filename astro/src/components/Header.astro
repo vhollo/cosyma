@@ -25,7 +25,7 @@ const home = p?.shift() || {}
           {cat.dropdown && cat.menu?.length && <ul>
             {cat.posts.map(sub => (
             <li>
-        {console.log({sub})}
+        <!--{console.log({sub})}-->
               <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
             </li>
             ))}

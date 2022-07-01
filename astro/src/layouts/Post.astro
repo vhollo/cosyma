@@ -24,7 +24,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 <h1>{post.title}</h1>}
 
 {post?.image?.asset && 
-<Image image={post.image} w="1440" />}
+<Image lazy="lazy" radius image={post.image} w="1440" />}
 
 {post?.subtitle &&
 <h2>{post.subtitle}</h2>}
@@ -77,14 +77,14 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
     {item.weblink || item.category ? (
     <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
       <h2>{item.title}</h2>
-      {item.image?.asset && <Image lazy radius image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
       {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
     </a>
     ) : (
     <div class={item.size}>
       <h2>{item.title}</h2>
-      {item.image?.asset && <Image lazy radius image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
       {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
     </div>
@@ -92,14 +92,6 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
   ))}
   </section>
 ))}
-<!--<aside>
-  Cikk megosztása:
-    <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Twitter</a>
-    <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Facebook</a>
-    <a href={`mailto:?subject=${post.title}%20–%20cosyma.hu&body=${post.title}%0A%0A%0A%0Ahttps://www.cosyma.hu/${post.cat[lang].current}/${post.slug.current}`} rel="external noopener" target="_blank">Email</a>
-    <a href="/blog/rss.xml" rel="external noopener" target="_blank">RSS</a>
-</aside>-->
-    <!--<a href={`https://www.facebook.com/dialog/share?app_id=5064192827001864&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer`} rel="external noopener" target="_blank">Facebook</a>-->
 
 <!--
 {post?.reltitle &&
@@ -128,36 +120,4 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 }-->
 
 <style>
-  @media screen and (orientation: landscape), screen and (min-width: 65ch) {
-    section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
-      grid-auto-flow: dense;
-    }
-  }
-  section a, section div {
-    margin-inline: auto;
-    max-width: max(75%,29ch);
-    padding: 0 2vw;
-    box-sizing: content-box;
-    transition: all .25s;
-    position: relative;
-    display: block;
-    border-radius: 0.35rem;
-    background-color: aliceblue;
-    box-shadow: var(--shadow) 0 0 .5rem;
-  }
-  .double {
-    grid-column-end: span 2;
-    /*grid-row-end: span 2;*/
-  }
-  a:hover, section div:hover {
-    transform: scale(1.025);
-    box-shadow: var(--shadow) 0 0 1rem;
-  }
-  aside {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2ch;
-  }
 </style>

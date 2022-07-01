@@ -21,7 +21,7 @@ const { page, lang } = Astro.props
 <h1>{page.title[lang]}</h1>}
 
 {page?.image?.asset && 
-<Image image={page.image} w="1440" />}
+<Image lazy radius image={page.image} w="1440" />}
 
 {page?.subtitle &&
 <h2>{page.subtitle}</h2>}
