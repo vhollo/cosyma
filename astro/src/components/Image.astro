@@ -1,8 +1,8 @@
 ---
 import { getSanityImageUrl, formatBlogPostDate } from '../utils/helpers.js'
-const { image } = Astro.props
+const { image, radius } = Astro.props
 if (!image?.asset) return
-//console.log('IMAGE',{image})
+console.log('IMAGE',image.radius)
 let src// = getSanityImageUrl(image)
 
 let { w } = Astro.props
@@ -26,7 +26,7 @@ let lang = 'hu', lazy
 ---
 <!--{folder && src && -->
 {src && 
-  <figure>
+  <figure class:list={ radius }>
     <img loading={lazy} src={src} alt=""/>
     {!!caption && <figcaption lang={lang}>{caption[lang] || caption}</figcaption>}
   </figure>
@@ -39,10 +39,12 @@ let lang = 'hu', lazy
     /*max-height: 30vh;*/
     width: auto;
 	}
+	.radius img {
+    border-radius: 0.75rem;
+	}
 	img {
 		margin: 0 0 1rem;
     box-shadow: var(--shadow) 0 0 0.5rem;
-    border-radius: 0.75rem;
     max-height: 40vh;
 	}
 </style>

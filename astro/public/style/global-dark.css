@@ -95,10 +95,10 @@ main, section {
   flex-direction: column;
   /*align-items: center;*/
   padding: 0 var(--gutterx) var(--spacer);
-  position: relative;
 }
 section {
   color: var(--darkgray);
+  z-index: -1;
 }
 article {
   width: min(100%, 80ch);

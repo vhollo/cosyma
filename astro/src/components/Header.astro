@@ -61,9 +61,11 @@ const home = p?.shift() || {}
     padding-block: 1rem;
     /*overflow: visible;
     overflow-x: hidden;*/
-    backdrop-filter: blur(6px);
     position: sticky;
     top: 0;
+    backdrop-filter: blur(6px);
+    /*filter: drop-shadow(1px 2px 3px black);*/
+    background-color: var(--shadow);
   }
   nav a, nav span {
     display: block;
