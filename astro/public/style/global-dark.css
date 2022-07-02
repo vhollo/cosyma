@@ -273,7 +273,7 @@ span {
   }
 }
 section {
-  position: relative;
+  /*position: relative;*/
   color: var(--darkgray);
   z-index: -1;
 }
