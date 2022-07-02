@@ -37,12 +37,13 @@
 
   --figurewidth: 80ch;
 
-  --darkgray: hsl(207, 0%, 14%);
-  --midtone: hsl(207, 0%, 26%);
+  --darkgray: hsl(207, 0%, 7%);
+  --midtone: hsl(207, 0%, 14%);
   --light: #e2e8f0;
   --lighter: #f9fafb;
   --grad: hsl(207deg 50% 66%);
-  --shadow: hsla(207, 0%, 14%, 0.7);
+  /*--shadow: hsla(207, 0%, 14%, 0.7);*/
+  --shadow: hsla(207, 0%, 7%, 0.75);
   --bg: #1f46670a;
 }
 
@@ -61,20 +62,18 @@
   /*font-size: clamp(1rem, 1rem + 1.0309vw + var(--user-font-scale), 1.125rem);*/
 }
 html {
-  background: var(--darkgray);
+  /*background-color: var(--darkgray);*/
+  background:  var(--darkgray) radial-gradient(circle at top, var(--midtone) 0%, var(--darkgray) 50%, var(--shadow) 120%);
+  background-attachment: fixed;
+  /*filter: hue-rotate(5deg) contrast(1.1);*/
 }
 body {
-  /*background: radial-gradient(circle at top, hsl(207, 54%, 96%) 0%, #f9fafb 50%, hsl(207, 54%, 92%) 100%);*/
-  background: radial-gradient(circle at top, var(--midtone) 0%, var(--darkgray) 50%, var(--shadow) 120%);
-  background-attachment: fixed;
   min-height: 100vh;
   margin-inline: auto;
-/*display: grid;
-  justify-content: center;*/
   color: var(--light);
-  filter: hue-rotate(5deg) contrast(1.1);
-  /*padding-top: 1rem;*/
+  /*filter: hue-rotate(5deg) contrast(1.1);*/
   padding-bottom: 8ch;
+
 }
 
 /*@media (prefers-color-scheme: dark) {
