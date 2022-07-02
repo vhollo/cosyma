@@ -11,13 +11,13 @@ import Footer from '../components/Footer.astro';
 // All variables are available to use in the HTML template below.
 
 //const { meta, title, subtitle, summary, image, folder, content } = Astro.props
-const {meta, title, description, permalink, publishDate, ogImageUrl, canonicalURL } = Astro.props;
+const {lang, meta, title, description, permalink, publishDate, ogImageUrl, canonicalURL } = Astro.props;
 
 //console.log('LAYOUT',Astro.props)
 // Full Astro Component Syntax:
 // https://docs.astro.build/core-concepts/astro-components/
 ---
-<html lang="{lang}">
+<html lang={lang}>
   <head>
     <BaseHead title={meta?.title || title} description={description} permalink={permalink} canonicalURL={canonicalURL} publishDate={publishDate} ogImageUrl={ogImageUrl} />
   </head>
