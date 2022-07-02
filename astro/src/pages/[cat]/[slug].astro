@@ -10,8 +10,9 @@ import { allCategoriesWithPosts } from '../../lib/api.js';
 import { catPages } from '../../lib/api.js';
 
 export async function getStaticPaths({rss}) {
+  const paths = new Set();
   //const pages = await client.fetch(catPages);
-  const allBlogPosts = await client.fetch(allPosts);
+  //const allBlogPosts = await client.fetch(allPosts);
   //console.log(allBlogPosts)
 /*
   rss({
@@ -31,12 +32,14 @@ export async function getStaticPaths({rss}) {
         //console.log('---')
 
   const allCategoryData = await client.fetch(allCategoriesWithPosts);
-  const paths = new Set();
-  allCategoryData.map(category => {
-    const slugs = Object.entries(category.slug)
+  const cats = allCategoryData.slice()
+  cats.map(category => {
+    category.menu = new Object()
+     const slugs = Object.entries(category.slug)
     //console.log(category.slug.hu.current,category.posts)
     slugs.forEach(([lang, slug]) => {
-      //const filteredPosts = category.posts.filter((post) => post._lang == lang);
+      category.menu[lang] = new Array()
+      
       const filteredPosts = category.posts?.filter((post) => post._lang == lang)
       /*  */
       //console.log(slug.current)
@@ -45,6 +48,22 @@ export async function getStaticPaths({rss}) {
           return a.slug.current.localeCompare(b.slug.current)
         })
       }
+
+      // Prepare main Nav (on every post)
+      allCategoryData.slice().map(cat => {
+
+        category.menu[lang][slug.current] = new Array()
+        fPosts = cat.posts?.filter(p => p._lang == lang);
+
+        if (cat.abc || cat.order == 'abc') {
+          fPosts.sort((a, b) => {
+            return a.slug.current.localeCompare(b.slug.current)
+          })
+        }
+        category.menu[lang][slug.current] = fPosts
+      })
+    
+
       filteredPosts.map(post => {
         //const subPosts = allBlogPosts.filter(p => p.category.slug[lang].current == post.slug.current && p._lang == lang) 
         const subCat = allCategoryData.find(c => c.slug[lang].current == post.slug.current)
@@ -58,10 +77,10 @@ export async function getStaticPaths({rss}) {
             return a.slug.current?.localeCompare(b.slug.current)
           })
         }
-        post.cat = category.slug;
+        //post.cat = category.slug;
 
         // Prepare Menuitems (on every post)
-        const menu = allCategoryData.slice()
+        /*const menu = allCategoryData.slice()
         menu.map(cat => {
           let fPosts
           if (lang == slug.current) fPosts = indexPosts.filter(post => post._lang == lang)
@@ -71,10 +90,10 @@ export async function getStaticPaths({rss}) {
               return a.slug.current.localeCompare(b.slug.current)
             })
           }
-          cat.menu = fPosts
-        })
+          category.menu[lang][slug.current] = fPosts
+        })*/
 
-        paths.add({params: {cat: slug.current, slug: post.slug.current}, props: {lang: lang, pages: menu, page: subCat || category, posts: []/*subPosts || filteredPosts*/, post: post}})
+        paths.add({params: {cat: slug.current, slug: post.slug.current}, props: {lang: lang, pages: allCategoryData, page: subCat || category, posts: []/*subPosts || filteredPosts*/, post: post}})
       })
     });
   })

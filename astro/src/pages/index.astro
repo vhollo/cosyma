@@ -32,13 +32,18 @@ const lang = 'hu'
   // Prepare Menuitems (on every post)
   const cats = allCategoryData.slice()
   cats.map(cat => {
+    //cat.menu = new Object()
+    //cat.menu[lang] = new Array()
+
     const fPosts = cat.posts?.filter(p => p._lang == lang);
     if (cat.abc || cat.order == 'abc') {
       fPosts.sort((a, b) => {
         return a.slug.current.localeCompare(b.slug.current)
       })
     }
-    cat.menu = fPosts
+    //cat.menu = fPosts
+    //cat.menu[lang][slug.current] = fPosts
+    cat.posts = fPosts
   })
 
 ---

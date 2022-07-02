@@ -25,46 +25,49 @@ export async function getStaticPaths() {
     //console.log(post.category)
     post.cat = post.category.slug
   })*/
+
   // Prepare all post pages
+  let menu = new Object()
   const allCategoryData = await client.fetch(allCategoriesWithPosts);
-  allCategoryData.map(category => {
+  const cats = allCategoryData.slice()
+  cats.map(category => {
+    category.menu = new Object()
   //console.log(category.slug)
     const slugs = Object.entries(category.slug)
     slugs.forEach(([lang, slug]) => {
+      category.menu[lang] = new Array()
       let filteredPosts = new Array()
-      if (lang == slug.current) filteredPosts = indexPosts.filter((p) => p._lang == lang)
+
+      if (lang == slug.current) {
+        filteredPosts = indexPosts.filter((p) => p._lang == lang)
+
+        // Prepare main Nav (on every post)
+        allCategoryData.slice().map(cat => {
+
+          //category.menu[lang][slug.current] = new Array()
+          fPosts = cat.posts?.filter(p => p._lang == lang);
+
+          if (cat.abc || cat.order == 'abc') {
+            fPosts.sort((a, b) => {
+              return a.slug.current.localeCompare(b.slug.current)
+            })
+          }
+          category.menu[lang][slug.current] = fPosts
+        })
+      
+      }
+      //console.log(category.menu)
       else filteredPosts = category.posts?.filter(p => p._lang == lang);
-      filteredPosts.map(p => {
+      /*filteredPosts.map(p => { /// ?
         p.cat = category.slug
-      })
+      })*/
       if (category.abc || category.order == 'abc') {
         filteredPosts.sort((a, b) => {
           return a.slug.current.localeCompare(b.slug.current)
         })
       }
+      //category.menu[lang][cat.slug[lang].current] = category.menu[lang][cat.slug[lang].current] || filteredPosts /// ?
 
-      // Prepare main Nav (on every post)
-      /*const menu = allCategoryData.slice()
-      menu.map(cat => {
-        let fPosts = new Array()
-        if (lang == slug.current) fPosts = []//indexPosts.filter(post => post._lang == lang)
-        else fPosts = cat.posts?.filter(p => p._lang == lang);
-        post.cat = category.slug
-        fPosts.map(post => {
-          post.cat = cat.slug
-        })
-        fPosts.forEach(p => {
-          //console.log(lang, p._lang, p.slug.current)
-        })
-
-        if (cat.abc || cat.order == 'abc') {
-          fPosts.sort((a, b) => {
-            return a.slug.current.localeCompare(b.slug.current)
-          })
-        }
-        cat.menu = fPosts
-      })*/
-      //console.log({menu})
 
       paths.add({params: {cat: slug.current}, props: {lang: lang, pages: allCategoryData, posts: filteredPosts, page: category}})
       /*if (slug.current == 'hu') {
@@ -79,7 +82,11 @@ export async function getStaticPaths() {
 }
 
 const { page, pages, posts, lang } = Astro.props
-//console.log(pages)
+//console.log(page.menu.en)
+/*pages.forEach(p => {
+  console.log(p.slug[lang]?.current, p.menu)
+})*/
+
 ---
 
 <Mozaik {...Astro.props} {lang} summaryfrom="auto"/>

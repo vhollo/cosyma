@@ -1,14 +1,12 @@
 ---
 import Debug from 'astro/debug'
 
-const { pages, lang } = Astro.props;
-/*let home
-home = home || pages?.shift() || {}*/
+const { page, pages, lang } = Astro.props;
 //const p = pages.slice()
-const p = pages?.slice().filter(cat => cat.index >= 0) || []
-//console.log({p})
-const home = p?.shift() || {}
-//console.log(lang, p[2])
+const cats = pages?.filter(cat => cat.index >= 0) || []
+let home
+home = home || cats?.shift() || {}
+//console.log(cats[2])
 ---
 <nav>
     <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
@@ -18,14 +16,14 @@ const home = p?.shift() || {}
       <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
     </a>
     <!--<div>HU | EN</div>-->
-    {p?.length && <ul>
-        {p.map(cat => (
+    {cats?.length && <ul>
+        {cats.map(cat => (
         <li>
         {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</span>}
-          {cat.dropdown && cat.menu?.length && <ul>
+          {cat.dropdown && cat.posts && <ul>
+          
             {cat.posts.map(sub => (
-            <li>
-        <!--{console.log({sub})}-->
+            sub._lang == lang && <li>
               <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
             </li>
             ))}
@@ -47,25 +45,23 @@ const home = p?.shift() || {}
 
 <style>
   nav {
-    margin-bottom: 7rem;
-    line-height: 1.15;
-  /*}
-  nav > div {*/
-    width: min(100%, 128ch);
-    /*margin-inline: var(--gutter2);*/
-    margin-inline: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: center;
-    padding-block: 1rem;
+    /*align-items:baseline;*/
+    /*margin-inline: var(--gutter2);*/
+    margin-inline: auto;
+    margin-bottom: 7rem;
+    line-height: 1.15;
+    padding-top: 1rem;
     /*overflow: visible;
     overflow-x: hidden;*/
-    position: sticky;
-    top: 0;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    /*filter: drop-shadow(1px 2px 3px black);*/
+    filter: drop-shadow(1px 2px 3px black);
     background-color: var(--shadow);
   }
   nav a, nav span {
@@ -81,16 +77,17 @@ const home = p?.shift() || {}
     padding-left: 1rem;
   }
   nav > a:last-of-type {
-    /*flex-grow: 0;
+    flex-grow: 0;
     display: flex;
-    align-cats: center;*/
+    height: 8rem;
+    align-items: center;
     margin-left: -1ch;
     /*padding-right: 5rem;*/
   }
   nav > a img {
     display: block;
     /*width: 4rem;*/
-    width: 4rem;
+    height: 8rem;
     /*padding: 0 0 2rem;*/
     margin: -.5rem 0 .5rem;
   }
@@ -99,12 +96,12 @@ const home = p?.shift() || {}
     font-weight: lighter;
     font-size: 1.5rem;
     line-height: 1.25em;
-    padding: 0 1rem;
-    margin: 0;
     inline-size: min-content;
     font-variant: small-caps;
     font-variant: common-ligatures small-caps; 
     font-style: italic;
+    padding: 0 1rem;
+    margin: 0;
   }
   /*nav h1 :global(span) {
     display: block;
@@ -119,27 +116,41 @@ const home = p?.shift() || {}
     padding-inline: 2ch;
   }    */
   ul {
-    display: flex;
     list-style: none;
     padding: 0;
   }
   nav > ul {
+    display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 1ch;
-    height: 100%;
-    align-cats: center;
+    /*height: 8rem;
+    align-items: center;*/
     margin: 0 auto;
+    padding-bottom: 1rem;
   }
+  nav > ul > li {
+    /*padding-inline-end: 2rem;*/
+    font-size: larger;
+    position: relative;
+    margin-top: 2.75rem;
+    height: fit-content;
+  }
+  nav > ul > li:last-child {
+    width: 4rem;
+    margin-left: -3px;
+    border-left: none!important;
+  }
+
   ul ul {
-    flex-direction: column;
-    position: absolute;
-    width: max-content;
+    display: none;
+    width: 0;
+    max-width: 0;
+    overflow-x: visible;
     height: auto;
     margin: 0;
     /*background-color: var(--lighter);*/
     /*backdrop-filter: brightness(0.9);*/
-    display: none;
     border-left: 3px solid;
     border-bottom: 3px solid;
     border-bottom-left-radius: 0.5rem;
@@ -147,20 +158,7 @@ const home = p?.shift() || {}
     margin-left: -3px;
   }
   ul li:focus-within ul, ul li:hover ul {
-    display: initial;
-  }
-
-  nav > ul > li:last-child {
-    width: 4rem;
-    margin-left: -3px;
-    border-left: none!important;
-  }
-
-
-  nav > ul > li {
-    /*padding-inline-end: 2rem;*/
-    font-size: larger;
-    position: relative;
+    display: block;
   }
   nav > ul > li:focus-within, nav > ul > li:hover {
     border-left: 3px solid;
@@ -169,19 +167,22 @@ const home = p?.shift() || {}
   }
   
   li a, li span {
+    inline-size: max-content;
     padding: .5rem 1rem;
   }
 
   details {
     position: absolute;
-    top: -1.8em;
+    /*top: -1.8em;*/
     right: -6.5em;
     border-left-width: 3px;
     border-top-width: 3px;
     border-radius: 0.5rem;
-    margin: 1rem;
+    margin: 0 1rem 0 0;
     cursor:default;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(160px);
+    -webkit-backdrop-filter: blur(160px);
+    background-color: var(--shadow);
   }
   summary {
     list-style: none;
