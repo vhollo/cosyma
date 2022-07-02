@@ -66,7 +66,7 @@ export default () =>
           .params({ baseLang: i18n.base })
           .canHandleIntent((_name, params, _context) => {
             // Assume we can handle all intents (actions) regarding post documents
-            return params.type === 'post'
+            return params.type === '*'
           })
       ),
 ])

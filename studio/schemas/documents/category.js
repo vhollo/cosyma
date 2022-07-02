@@ -53,6 +53,13 @@ export default {
       localize: false,
     },
     {
+      name: 'dropmax',
+      title: 'Max. menuitems',
+      type: 'number',
+      validation: Rule => Rule.positive(),
+      localize: false,
+    },
+    {
       name: 'link',
       title: 'Menu links to page?',
       type: 'boolean',

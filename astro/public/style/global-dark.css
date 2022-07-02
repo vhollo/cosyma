@@ -72,7 +72,7 @@ body {
   margin-inline: auto;
   color: var(--light);
   /*filter: hue-rotate(5deg) contrast(1.1);*/
-  /*padding-bottom: 8ch;*/
+  padding-bottom: 1.5rem;
 
 }
 
