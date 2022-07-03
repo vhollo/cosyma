@@ -35,17 +35,10 @@ export default {
   ],
   preview: {
     select: {
-      date1: 'date1',
-      date2: 'date2',
-      detail: 'detail',
-      lang: '_lang',
-    },
-    prepare(selection) {
-      const {date1, date2, subtitle} = selection
-      return Object.assign({}, selection, {
-        title: `${date1} (${date2})`,
-        subtitle: detail && `${detail[lang]} (${lang})`,
-      })
+      title: "date1",
+      subtitle: "date2",
+      index: 'index',
+      media: 'image'
     },
   },
 }

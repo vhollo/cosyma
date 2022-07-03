@@ -26,7 +26,7 @@ let lang = 'hu'//, lazy, radius
 ---
 <!--{folder && src && -->
 {src && 
-  <figure class = {(radius && 'radius ') + (!!double && 'double')}>
+  <figure class = {`${(radius ? 'radius ' : '')} ${(double ? 'double' : '')}`}>
     <img loading={lazy} src={src} alt=""/>
     {!!caption && <figcaption lang={lang}>{caption[lang] || caption}</figcaption>}
   </figure>
@@ -47,9 +47,10 @@ let lang = 'hu'//, lazy, radius
 	img {
 		margin: 0 auto 1rem;
     box-shadow: var(--shadow) 0 0 0.5rem;
-    max-height: 20vh;
+    max-height: 30vh;
+    width: 100%;
 	}
   .double img {
-    max-height: 40vh;
+    max-height: 45vh;
   }
 </style>

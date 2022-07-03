@@ -9,41 +9,57 @@ home = home || cats?.shift() || {}
 //console.log(cats[2])
 ---
 <nav>
-    <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
-      <img src="/assets/csh_white_notxt.svg" alt=""/>
-    </a>
-    <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
-      <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
-    </a>
-    <!--<div>HU | EN</div>-->
-    {cats?.length && <ul>
-        {cats.map(cat => (
-        <li>
-        {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</span>}
-          {cat.dropdown && cat.posts && <ul>
-          
-            {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
-            sub._lang == lang && <li>
-              <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
-            </li>
-            ))}
-          </ul>}
+  <input type="checkbox" id="hamburger" hidden/>
+  <label for="hamburger" class="mobile">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+  </label>
+
+  <!--<div>HU | EN</div>-->
+  {cats?.length && <ul>
+    {cats.map(cat => (
+    <li>
+    {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a> : <a hidden class="hidden mobile" href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a><span class="desktop" tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</span>}
+      {cat.dropdown && cat.posts && <ul class="desktop">
+      
+        {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
+        sub._lang == lang && <li>
+          <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
         </li>
         ))}
-        <li>
-          <details>
-            <summary>⚑</summary>
-            <a href="/">Magyar</a>
-            <a href="/en">English</a>
-            <a href="/de">Deutsch</a>
-          </details>
-        </li>
       </ul>}
-        <!--<li><a href="/">Jelentkezés</a></li>
-        <li><a href="/">Előadások</a></li>-->
+    </li>
+    ))}
+    <li>
+      <details>
+        <summary>⚑</summary>
+        <a href="/">Magyar</a>
+        <a href="/en">English</a>
+        <a href="/de">Deutsch</a>
+      </details>
+    </li>
+  </ul>}
+  <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
+    <img src="/assets/csh_white_notxt.svg" alt=""/>
+  </a>
+  <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
+    <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
+  </a>
 </nav>
 
 <style>
+  label {
+    order: 0;
+    flex-shrink: 0;
+    stroke: currentColor;
+  }
+  label svg {
+    width: 3rem;
+    height: 3rem;
+  }
+  label:focus + ul, label + ul:focus {
+    display: block;
+  }
+
   nav {
     position: fixed;
     top: 0;
@@ -65,12 +81,9 @@ home = home || cats?.shift() || {}
     background-color: var(--shadow);
     z-index: 1;
   }
-  nav:focus-within {
-    /*max-height: 1000rem;*/
-  }
-  nav a, nav span {
+  /*nav a, nav span {
     display: block;
-  }
+  }*/
   nav span {
     cursor: default;
   }
@@ -78,10 +91,12 @@ home = home || cats?.shift() || {}
     flex-grow: 0;
   }
   nav > a:first-of-type {
+    order: 1;
     padding-left: 1rem;
     margin-left: auto;
   }
   nav > a:last-of-type {
+    order: 2;
     flex-grow: 0;
     display: flex;
     height: 8rem;
@@ -124,7 +139,8 @@ home = home || cats?.shift() || {}
     list-style: none;
     padding: 0;
   }
-  nav > ul {
+  input ~ ul {
+    order: 3;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -134,17 +150,20 @@ home = home || cats?.shift() || {}
     margin: 0 auto;
     padding-bottom: 1rem;
   }
-  nav > ul > li {
+  input ~ ul > li {
     /*padding-inline-end: 2rem;*/
     font-size: larger;
     position: relative;
     margin-top: 2.75rem;
     height: fit-content;
   }
-  nav > ul > li:last-child {
+  input ~ ul > li:last-child {
     width: 4rem;
     margin-left: -3px;
     border-left: none!important;
+  }
+  input ~ ul > li > a, input ~ ul > li > span {
+    color: var(--lighter);
   }
 
   ul ul {
@@ -183,9 +202,10 @@ home = home || cats?.shift() || {}
   }
 
   details {
-    position: absolute;
+    position: fixed;
     /*top: -1.8em;*/
-    right: -6.5em;
+    /*right: -6.5em;*/
+    right: .5em;
     border-left-width: 3px;
     border-top-width: 3px;
     border-radius: 0.5rem;
@@ -199,11 +219,50 @@ home = home || cats?.shift() || {}
     list-style: none;
     list-style-type: none;
     font-size: xx-large;
-    padding: 0 0.5rem;
+    padding: 0 .5rem;
   }
   summary::-webkit-details-marker {display: none; }
   details a {
     padding: .25rem .5rem;
   }
+
+  nav ul a:not(.mobile) {
+    display: block;
+  }
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: none;
+  }
+  @media screen and (max-width: 768px), (pointer: none) {
+    .mobile {
+      display: block;
+    }
+
+    input ~ ul {
+      order: 1;
+      display: none;
+    }
+    input:checked ~ ul/*, .mobile + ul:focus, .mobile + ul:focus-within*/ {
+      display: block;
+    }
+    input ~ ul > li/*, .mobile + ul > li*/ {
+      margin-top: 1.5rem;
+      text-transform: uppercase;
+    }
+    input ~ ul > li:last-child/*, .mobile + ul > li:last-child*/ {
+      margin-left: 1rem;
+    }
+    input ~ ul details/*, .mobile + ul details*/ {
+      position: static;
+    }
+  }
+  @media screen and (min-width: 769px), !(pointer: none) {
+    .desktop {
+      display: block;
+    }
+  }
+
 
 </style>

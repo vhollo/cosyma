@@ -101,7 +101,7 @@ nav + main {
 
 article {
   width: min(100%, 80ch);
-  line-height: 1.65;
+  /*line-height: 1.65;*/
   display: flex;
   flex-direction: column;
   /*align-items: center;*/
@@ -112,7 +112,7 @@ article {
 /*article > :first-child {
   padding-top: var(--spacer);
 }*/
-article > :first-child::first-letter/*, article > span */{
+article > div:first-child > p:first-child::first-letter/*, article > span */{
   /*color: blue;*/
   font-size: 2em;
   /*font-weight: 100;*/
@@ -249,6 +249,9 @@ figcaption a {
 }
 
 p, ul, ol, dl {
+  margin: 0.67em 0;
+}
+ol > li {
   margin: 0.67em 0;
 }
 
