@@ -275,7 +275,7 @@ span {
 section {
   /*position: relative;*/
   color: var(--darkgray);
-  z-index: -1;
+  /*z-index: -1;*/
 }
 section > a, section > div {
   margin-inline: auto;
