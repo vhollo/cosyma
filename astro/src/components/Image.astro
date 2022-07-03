@@ -14,9 +14,9 @@ let { ratio } = Astro.props
 if (ratio) h = w * ratio / 100
 
 if (h) {
-  src = getSanityImageUrl(image).width(w).height(h).url()
+  src = getSanityImageUrl(image).width(w).height(h).format('webp').url()
 } else {
-  src = getSanityImageUrl(image).width(w).url()
+  src = getSanityImageUrl(image).width(w).format('webp').url()
 }
 
 const { caption } = image || {}
