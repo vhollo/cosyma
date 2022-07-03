@@ -11,7 +11,9 @@ home = home || cats?.shift() || {}
 <nav>
   <input type="checkbox" id="hamburger" hidden/>
   <label for="hamburger" class="mobile">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+    <svg class="open h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+    <svg  class="close iconify iconify--bx" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M15 19V5l-8 7z"/></svg>
+    <!--<span class="close">X</span>-->
   </label>
 
   <!--<div>HU | EN</div>-->
@@ -47,6 +49,13 @@ home = home || cats?.shift() || {}
 </nav>
 
 <style>
+  :checked ~ label .open {
+    display: none;
+  }
+  :not(:checked) ~ label .close {
+    display: none;
+  }
+
   label {
     order: 0;
     flex-shrink: 0;
@@ -200,6 +209,9 @@ home = home || cats?.shift() || {}
     inline-size: max-content;
     padding: .5rem 1rem;
   }
+  input ~ ul > li > a, input ~ ul > li > span {
+    text-transform: uppercase;
+  }
 
   details {
     position: fixed;
@@ -229,9 +241,6 @@ home = home || cats?.shift() || {}
   nav ul a:not(.mobile) {
     display: block;
   }
-  .mobile {
-    display: none;
-  }
   .desktop {
     display: none;
   }
@@ -249,7 +258,6 @@ home = home || cats?.shift() || {}
     }
     input ~ ul > li/*, .mobile + ul > li*/ {
       margin-top: 1.5rem;
-      text-transform: uppercase;
     }
     input ~ ul > li:last-child/*, .mobile + ul > li:last-child*/ {
       margin-left: 1rem;
@@ -261,6 +269,9 @@ home = home || cats?.shift() || {}
   @media screen and (min-width: 769px), !(pointer: none) {
     .desktop {
       display: block;
+    }
+    .mobile {
+      display: none;
     }
   }
 
