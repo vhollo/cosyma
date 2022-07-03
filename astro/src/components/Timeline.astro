@@ -13,7 +13,7 @@ const { timeline, lang } = Astro.props
   <Fragment>
   <dt><date>{item.date1}{item.date2 ? '–' + item.date2 : ''}</date></dt>
   <dd>
-    <SanityBlockContent blocks={item.detail[lang]}/>
+    <SanityBlockContent blocks={Object.prototype.toString.call(item.detail) === '[object Object]' ? item.detail[lang] : item.detail}/>
     {item.image[lang]?.asset && <Image image={item.image[lang]}/>}
   </dd>
   <!--<Debug {item.image}/>-->
