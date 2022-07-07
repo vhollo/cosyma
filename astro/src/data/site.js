@@ -1,13 +1,13 @@
 export default {
-    title: `Astro Sanity Minimal Starter for the Vandals`,
-    description: `This is an example blog made with Astro.`,
-    url: `https://vandals-hu.netlify.app`, // No trailing slash!
+    title: `Cosyma`,
+    description: `Collegium Symphonica Hungarica.`,
+    url: `https://cosyma.netlify.app`, // No trailing slash!
     // JSON LD
-    name: `Example`,
+    name: `Cosyma`,
     // Facebook URL
-    facebookURL: `https://facebook.com`,
+    facebookURL: `https://www.facebook.com/www.cosyma.hu/`,
     // Twitter URL
-    twitterURL: `https://twitter.com/jaydanurwin`,
+    //twitterURL: `https://twitter.com/jaydanurwin`,
     // Instagram URL
-    instagramURL: `https://instagram.com/jaydanurwin`,
+    instagramURL: `https://www.instagram.com/cosyma.official/`,
 }
