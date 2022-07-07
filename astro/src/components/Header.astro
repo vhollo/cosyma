@@ -69,8 +69,12 @@ home = home || cats?.shift() || {}
     display: block;
   }
 
+  @media screen and (min-height: 640px) {
+    nav {
+      position: fixed;
+    }
+  }
   nav {
-    position: fixed;
     top: 0;
     width: 100%;
     display: flex;
