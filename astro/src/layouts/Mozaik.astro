@@ -19,7 +19,10 @@ import Debug from 'astro/debug'
 // All variables are available to use in the HTML template below.
 
 const { page, post, posts, summaryfrom, lang } = Astro.props
-//console.log('MOZAIK', ...page.body.hu)
+//console.log('MOZAIK', ...posts)
+console.log('MOZAIK',posts?.map(p => p.slug.current))
+console.log('MOZAIK',posts?.map(p => p.publishedAt))
+
 console.log('RELPOSTS', post?.relposts?.length)
 console.log('SUBPOSTS', post?.subposts?.length)
 console.log('GALLERIES', post?.galleries?.length)
@@ -36,21 +39,32 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 <!--<Debug {post}/>-->
 {post && <Post {post} {lang}/>}
 {!post && !!page && <Page {page} {lang}/>}
-
 </main>
 
 {posts && 
 <section>
   {posts.map(item => item.slug.current != post?.slug.current && (
-  <a href={item.weblink || `/${item.category?.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
-      <h3>{item.menutitle || item.title}</h3>
+    item.weblink || item.category ? (
+    <a href={item.weblink || `/${item.category?.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
+      <h2>{item.menutitle || item.title}</h2>
       {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
       {!!item.summary && item.summaryfrom != 'none' && <SanityBlockContent blocks={item.summary}/>}
       {(summaryfrom == 'content' && !item.summary) && (
         <SanityBlockContent blocks={item.body} />
       )}
-  </a>
+    </a>
+    ) : (
+    <div class={item.size}>
+      <h2>{item.menutitle || item.title}</h2>
+      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.subtitle && <h3>{item.subtitle}</h3>}
+      {!!item.summary && item.summaryfrom != 'none' && <SanityBlockContent blocks={item.summary}/>}
+      {(summaryfrom == 'content' && !item.summary) && (
+        <SanityBlockContent blocks={item.body} />
+      )}
+    </div>
+    )
   ))}
 </section>}
 </Layout>

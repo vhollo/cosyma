@@ -31,5 +31,23 @@
         ],
       },
     },
+    {
+      type: 'captionImage',
+      options: {hotspot: true},
+    },
+    {
+      title: 'File link',
+      type: 'file',
+      fields: [
+        {
+          name: 'description',
+          type: 'string',
+          title: 'Description',
+          options: {
+            isHighlighted: true
+          }
+        },
+      ]
+    },
   ],
 }

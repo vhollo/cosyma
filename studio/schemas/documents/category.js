@@ -98,7 +98,7 @@ export default {
     {
       title: 'Content',
       name: 'body',
-      type: 'blockContent'
+      type: 'inlineContent'
     },
   ],
   initialValue: {

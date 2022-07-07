@@ -63,7 +63,8 @@
 }
 html {
   /*background-color: var(--darkgray);*/
-  background:  var(--darkgray) radial-gradient(circle at top, var(--midtone) 0%, var(--darkgray) 50%, var(--shadow) 120%);
+  /*background:  var(--darkgray) radial-gradient(circle at top, var(--midtone) 0%, var(--darkgray) 50%, var(--shadow) 120%);*/
+  background:  var(--darkgray) radial-gradient(circle at top, var(--bg) 0%, var(--darkgray) 50%, var(--shadow) 120%);
   background-attachment: fixed;
   /*filter: hue-rotate(5deg) contrast(1.1);*/
 }
@@ -83,8 +84,13 @@ body {
   }
 }*/
 
-main, section {
+main {
   width: min(100%, 112ch);
+}
+section {
+  width: 100%;
+}
+main, section {
   margin-inline: auto;
   line-height: 1.65;
   display: flex;
@@ -96,7 +102,7 @@ main, section {
   padding: 0 var(--gutterx) var(--spacer);
 }
 nav + main {
-  padding-top: 15rem;
+  padding-top: 12rem;
 }
 
 article {
@@ -255,9 +261,9 @@ ol > li {
   margin: 0.67em 0;
 }
 
-p a {
+/*p a {
   text-decoration: revert;
-}
+}*/
 
 dd p {
   margin-top: 0;
@@ -282,8 +288,8 @@ section {
 }
 section > a, section > div {
   margin-inline: auto;
-  max-width: max(75%,29ch);
-  padding: 0 2vw;
+  max-width: max(85%,29ch);
+  padding: 0 1vw;
   box-sizing: content-box;
   transition: all .25s;
   /*position: relative;*/

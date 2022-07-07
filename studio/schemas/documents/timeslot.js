@@ -22,7 +22,7 @@ export default {
     {
       title: 'Detail',
       name: 'detail',
-      type: 'blockContent'
+      type: 'inlineContent'
     },
     {
       title: 'Image',

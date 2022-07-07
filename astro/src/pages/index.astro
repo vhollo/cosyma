@@ -27,10 +27,10 @@ const lang = 'hu'
   //console.log({pages})
   const allBlogPosts = await client.fetch(allPosts);
   const indexPosts = allBlogPosts?.filter(p => p.index && p._lang == lang)
-  //console.log({indexPosts})
+  //console.log(indexPosts.map(p => p._id))
 
   // Prepare Menuitems (on every post)
-  const cats = allCategoryData.slice()
+  const cats = allCategoryData?.filter(p => p.index >= 0).slice()
   cats.map(cat => {
     //cat.menu = new Object()
     //cat.menu[lang] = new Array()

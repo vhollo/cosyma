@@ -90,7 +90,7 @@ export default {
     {
       title: 'Content',
       name: 'body',
-      type: 'blockContent'
+      type: 'inlineContent'
     },
     {
       name: 'galleries',
@@ -138,7 +138,8 @@ export default {
       menutitle: 'menutitle',
       category: 'category.name',
       lang: '_lang',
-      media: 'image'
+      media: 'image',
+      publishedAt: 'publishedAt'
     },
     prepare(selection) {
       const {title, menutitle, category, lang, slug} = selection

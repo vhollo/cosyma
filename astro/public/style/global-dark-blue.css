@@ -83,8 +83,10 @@ body {
   }
 }*/
 
-main, section {
+main {
   width: min(100%, 112ch);
+}
+main, section {
   margin-inline: auto;
   line-height: 1.65;
   display: flex;
@@ -282,8 +284,8 @@ section {
 }
 section > a, section > div {
   margin-inline: auto;
-  max-width: max(75%,29ch);
-  padding: 0 2vw;
+  max-width: max(85%,29ch);
+  padding: 0 1vw;
   box-sizing: content-box;
   transition: all .25s;
   /*position: relative;*/

@@ -20,7 +20,7 @@ home = home || cats?.shift() || {}
   {cats?.length && <ul>
     {cats.map(cat => (
     <li>
-    {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a> : <a hidden class="hidden mobile" href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</a><span class="desktop" tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || '?!?'}</span>}
+    {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a> : <!--<a hidden class="mobile" href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a>--><span class="des-ktop" tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</span>}
       {cat.dropdown && cat.posts && <ul class="desktop">
       
         {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
@@ -82,17 +82,16 @@ home = home || cats?.shift() || {}
     margin-bottom: 7rem;
     line-height: 1.15;
     padding-top: 1rem;
-    /*overflow: visible;
-    overflow-x: hidden;*/
-    backdrop-filter: blur(6px);
+    /*backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     filter: drop-shadow(1px 2px 3px black);
-    background-color: var(--shadow);
+    background-color: var(--shadow);*/
+    background-color: var(--darkgray);
     z-index: 1;
   }
-  /*nav a, nav span {
+  nav a, nav span {
     display: block;
-  }*/
+  }
   nav span {
     cursor: default;
   }
@@ -184,6 +183,7 @@ home = home || cats?.shift() || {}
     overflow-x: visible;
     height: 0;
     margin: 0;
+    padding-top: .5rem;
     /*background-color: var(--lighter);*/
     /*backdrop-filter: brightness(0.9);*/
     border-left: 3px solid;
@@ -192,7 +192,7 @@ home = home || cats?.shift() || {}
     border-bottom-right-radius: 0.5rem;
     margin-left: -3px;
   }
-  ul li:focus-within ul, ul li:hover ul {
+  li:focus-within ul, li:hover ul {
     /*display: block;*/
     height: auto;
     opacity: 1;
@@ -210,7 +210,7 @@ home = home || cats?.shift() || {}
     padding: .5rem 1rem;
   }
   input ~ ul > li > a, input ~ ul > li > span {
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
   }
 
   details {

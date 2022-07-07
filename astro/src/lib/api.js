@@ -18,7 +18,7 @@ export const catPages = `
 } | order(index asc)`;
 
 export const allPosts = `
-*[_type == 'post']{...,
+*[_type == 'post' && !(_id match "drafts*")]{...,
   category->{slug, name},
   relposts[]->{..., category->{slug, name}},
   galleries[]->{..., gallery->{..., posts[]->{..., slug, 'category': name}}},
@@ -74,7 +74,7 @@ export const allCategoriesWithPosts = `
         }.matches
     }
   } | order(publishedAt desc), 
-  
+
   // DEL:
   "pages": *[_type == "page" && references(^._id) && !(_id match "drafts*")]
   {
