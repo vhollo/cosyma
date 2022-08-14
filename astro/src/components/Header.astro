@@ -180,6 +180,7 @@ home = home || cats?.shift() || {}
     width: 4rem;
     margin-left: -3px;
     border-left: none!important;
+    position: relative;
   }
   input ~ ul > li > a, input ~ ul > li > span {
     color: var(--lighter);
@@ -225,14 +226,15 @@ home = home || cats?.shift() || {}
   }
 
   details {
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     /*top: -1.8em;*/
     /*right: -6.5em;*/
     right: .5em;
     border-left-width: 3px;
     border-top-width: 3px;
     border-radius: 0.5rem;
-    margin: 0 1rem 0 0;
+    margin: 0 1rem 0 auto;
     cursor:default;
     backdrop-filter: blur(160px);
     -webkit-backdrop-filter: blur(160px);
