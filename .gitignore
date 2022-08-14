@@ -9,3 +9,5 @@
 
 studio/dist
 astro/dist
+# Local Netlify folder
+.netlify

@@ -153,12 +153,6 @@ figure {
   margin: 1rem 0 var(--gutter2);
 }
 
-strong, b {
-  /*font-weight: normal;*/
-  /*font-family: 'Silk Serif SemiBold';*/
-  /*text-shadow: 0 0 1px var(--midtone, #1f4667);*/
-}
-
 header p {
   font-family: 'Alegreya SC';
   text-shadow: 0 0 1px var(--midtone, #1f4667);
@@ -216,8 +210,6 @@ section h1, section h2, section h3, section h4, section h5, section h6, section 
 h1, h2, h3 {
   /*font-size: 1.25em;*/
   text-align: center;
-}
-h1, h4, h5 {
 }
 h2, h3 {
   text-rendering: geometricPrecision;
