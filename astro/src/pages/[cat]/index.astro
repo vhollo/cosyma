@@ -45,7 +45,7 @@ export async function getStaticPaths() {
         allCategoryData.slice().map(cat => {
 
           //category.menu[lang][slug.current] = new Array()
-          fPosts = cat.posts?.filter(p => p._lang == lang);
+          const fPosts = cat.posts?.filter(p => p._lang == lang);
 
           if (cat.abc || cat.order == 'abc') {
             fPosts.sort((a, b) => {
