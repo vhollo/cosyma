@@ -8,15 +8,15 @@
     "build": "astro build"
   },
   "devDependencies": {
-    "@astrojs/renderer-lit": "^0.2.1",
-    "@sanity/asset-utils": "^1.2.3",
+    "@astrojs/renderer-lit": "^0.4.0",
+    "@sanity/asset-utils": "^1.2.5",
     "@sanity/block-content-to-markdown": "^0.0.5",
     "@sanity/block-content-to-react": "^3.0.0",
-    "@sanity/client": "^2.23.2",
+    "@sanity/client": "^3.3.3",
     "@sanity/image-url": "^1.0.1",
-    "astro": "^0.22.1",
-    "date-fns": "^2.23.0",
-    "dotenv": "^10.0.0",
-    "prismjs": "^1.25.0"
+    "astro": "^1.0.5",
+    "date-fns": "^2.29.1",
+    "dotenv": "^16.0.1",
+    "prismjs": "^1.28.0"
   }
 }
