@@ -1,3 +1,5 @@
+import { baseLanguage } from '../languages'
+
 export default {
   title: 'Gallery',
   name: 'gallery',
@@ -7,6 +9,7 @@ export default {
       title: 'Title',
       name: 'title',
       type: 'string',
+      localize: true,
     },
     {
       name: 'posts',

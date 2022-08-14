@@ -124,6 +124,7 @@ article > :first-child::first-letter/*, article > span */{
 }
 article > :last-child {
   padding-bottom: var(--gutter);
+  margin-inline: auto;
 }
 article a {
   text-decoration: none;

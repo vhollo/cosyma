@@ -21,7 +21,19 @@ export const allPosts = `
 *[_type == 'post' && !(_id match "drafts*")]{...,
   category->{slug, name},
   relposts[]->{..., category->{slug, name}},
-  galleries[]->{..., gallery->{..., posts[]->{..., slug, 'category': name}}},
+  galleries[]->{..., gallery->{..., posts[]->{...,
+    _langRefs,
+    !(_id match "i18n*") => {
+      "refs": *[_id in path("i18n." + ^._id + ".*")]{_lang, slug}
+    },
+    _id match "i18n*" => {
+      "refs":
+        *[^._id in _langRefs[].ref._ref]{_lang, slug} + 
+        *[^._id in _langRefs[].ref._ref][0]{
+          "matches": *[_id in path("i18n." + ^._id + ".*")]{_lang, slug}
+        }.matches
+    }
+  }}},
   _langRefs,
   !(_id match "i18n*") => {
     "refs": *[_id in path("i18n." + ^._id + ".*")]{_lang, slug}
@@ -57,11 +69,20 @@ export const allCategoriesWithPosts = `
     },
     category->{slug, 'name': name},
     relposts[]->{..., category->{slug, 'category': name}},
-    galleries[]->{
-      ..., posts[]->{
-        ..., category->{slug, 'name': name}
+    galleries[]->{..., posts[]->{
+      ..., 
+      _langRefs,
+      !(_id match "i18n*") => {
+        "refs": *[_id in path("i18n." + ^._id + ".*")]{...,_lang, slug}
+      },
+      _id match "i18n*" => {
+        "refs":
+          *[^._id in _langRefs[].ref._ref]{_lang, slug} + 
+          *[^._id in _langRefs[].ref._ref][0]{
+            "matches": *[_id in path("i18n." + ^._id + ".*")]{...,_lang, slug}
+          }.matches
       }
-    },
+    }},
     _langRefs,
     !(_id match "i18n*") => {
       "refs": *[_id in path("i18n." + ^._id + ".*")]{_lang, slug}

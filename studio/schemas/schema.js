@@ -25,7 +25,6 @@ export default createSchema({
       captionImage,
       post,
       page,
-      gallery,
     ])
     // Include documents with field translation support.
     // This changes their structure, transforming
@@ -40,5 +39,6 @@ export default createSchema({
     .concat(translateFields([
       category,
       timeslot,
+      gallery,
     ]))
 })

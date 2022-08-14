@@ -16,21 +16,20 @@ home = home || cats?.shift() || {}
     <!--<span class="close">X</span>-->
   </label>
 
-  <!--<div>HU | EN</div>-->
-  {cats?.length && <ul>
-    {cats.map(cat => (
-    <li>
-    {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a> : <!--<a hidden class="mobile" href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a>--><span class="des-ktop" tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</span>}
-      {cat.dropdown && cat.posts && <ul class="desktop">
-      
-        {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
-        sub._lang == lang && <li>
-          <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
-        </li>
-        ))}
-      </ul>}
-    </li>
-    ))}
+  <ul>
+    {cats?.length && cats.map(cat => (
+      <li>
+      {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</span>}
+        {cat.dropdown && cat.posts && <ul class="desktop">
+          {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
+          sub._lang == lang && <li>
+            <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
+          </li>
+          ))}
+        </ul>}
+      </li>
+    ))
+    }
     <li>
       <details>
         <summary>⚑</summary>
@@ -39,7 +38,7 @@ home = home || cats?.shift() || {}
         <a href="/de">Deutsch</a>
       </details>
     </li>
-  </ul>}
+  </ul>
   <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
     <img src="/assets/csh_white_notxt.svg" alt=""/>
   </a>
@@ -92,6 +91,14 @@ home = home || cats?.shift() || {}
     background-color: var(--shadow);*/
     background-color: var(--darkgray);
     z-index: 1;
+    position: sticky;
+    top: -3.75rem;
+  }
+
+    nav > ul > li {
+    padding-top: 1rem;
+    /*position: sticky;
+    top: 3.75rem;*/
   }
   nav a, nav span {
     display: block;

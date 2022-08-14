@@ -104,6 +104,9 @@ main, section {
 nav + main {
   padding-top: 12rem;
 }
+nav > ul > li > a, nav > ul > li >span {
+  font-weight: bold;
+}
 
 article {
   width: min(100%, 80ch);
@@ -131,6 +134,7 @@ article > div:first-child > p:first-child::first-letter/*, article > span */{
 }
 article > :last-child {
   padding-bottom: var(--gutter);
+  margin-inline: auto;
 }
 article a {
   text-decoration: none;

@@ -65,33 +65,24 @@ export async function getStaticPaths({rss}) {
     
 
       filteredPosts.map(post => {
-        //const subPosts = allBlogPosts.filter(p => p.category.slug[lang].current == post.slug.current && p._lang == lang) 
         const subCat = allCategoryData.find(c => c.slug[lang].current == post.slug.current)
         //console.log({subCat})
         const subPosts = subCat?.posts?.filter((p) => p._lang == lang && p.slug.current !== post.slug.current)
-
-        //console.log({subCat})
         
         if (subCat?.order == 'abc') {
           subPosts.sort((a, b) => {
             return a.slug.current?.localeCompare(b.slug.current)
           })
         }
-        //post.cat = category.slug;
 
-        // Prepare Menuitems (on every post)
-        /*const menu = allCategoryData.slice()
-        menu.map(cat => {
-          let fPosts
-          if (lang == slug.current) fPosts = indexPosts.filter(post => post._lang == lang)
-          else fPosts = cat.posts?.filter(post => post._lang == lang);
-          if (cat.abc || cat.order == 'abc') {
-            fPosts.sort((a, b) => {
-              return a.slug.current.localeCompare(b.slug.current)
-            })
-          }
-          category.menu[lang][slug.current] = fPosts
-        })*/
+        //gallery: referenced posts should be merged
+        post.galleries?.map(gal => {
+          let prs = []
+          gal.posts.map(post => {
+            prs.push(...post.refs)
+          })
+          gal.posts.push(...prs)
+        })
 
         paths.add({params: {cat: slug.current, slug: post.slug.current}, props: {lang: lang, pages: allCategoryData, page: subCat || category, posts: []/*subPosts || filteredPosts*/, post: post}})
       })

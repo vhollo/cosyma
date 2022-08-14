@@ -98,7 +98,10 @@ main, section {
   padding: 0 var(--gutterx) var(--spacer);
 }
 nav + main {
-  padding-top: 15rem;
+  padding-top: 12rem;
+}
+nav > ul > li > a, nav > ul > li >span {
+  font-weight: bold;
 }
 
 article {
@@ -127,6 +130,7 @@ article > div:first-child > p:first-child::first-letter/*, article > span */{
 }
 article > :last-child {
   padding-bottom: var(--gutter);
+  margin-inline: auto;
 }
 article a {
   text-decoration: none;

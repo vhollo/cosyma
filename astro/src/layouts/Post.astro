@@ -5,6 +5,7 @@ import SanityBlockContent from '../components/SanityBlockContent.jsx'
 import Debug from 'astro/debug'
 
 const { post, lang } = Astro.props
+//console.log(post.galleries)
 //post.galleries.map(g => console.log(g))
 //console.log(SanityBlockContent({"blocks":post.summary}))
 const imgsize = { "default": 360, "double": 720, "full": 1440 }
@@ -70,25 +71,25 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 
 {post?.galleries?.map(gal => (
   <!--<Debug {gal}/>-->
-  {gal.title && <h2>{gal.title}</h2>}
+  {gal.title && <h2>{gal.title[lang]}</h2>}
   <section>
   {gal.posts.map(item => (
     <!--<Debug {item}/>-->
-    {item.weblink || item.category ? (
-    <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
-      <h2>{item.title}</h2>
-      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
-      {item.subtitle && <h3>{item.subtitle}</h3>}
-      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
-    </a>
-    ) : (
-    <div class={item.size}>
-      <h2>{item.title}</h2>
-      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
-      {item.subtitle && <h3>{item.subtitle}</h3>}
-      {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
-    </div>
-    )}
+    {item._lang == lang && (item.weblink ? (
+      <a href={item.weblink} class={item.size}>
+        <h2>{item.title}</h2>
+        {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+        {item.subtitle && <h3>{item.subtitle}</h3>}
+        {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+      </a>
+      ) : (
+      <div class={item.size}>
+        <h2>{item.title}</h2>
+        {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+        {item.subtitle && <h3>{item.subtitle}</h3>}
+        {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
+      </div>
+    ))}
   ))}
   </section>
 ))}

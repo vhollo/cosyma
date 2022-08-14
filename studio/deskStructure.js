@@ -52,7 +52,7 @@ export default () =>
       ),
 
       S.listItem()
-      .title('Posts & assets')
+      .title('All Posts & Assets')
       .id('posts')
       .icon(PostIcon)
       .schemaType('post')

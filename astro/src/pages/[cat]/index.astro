@@ -8,7 +8,7 @@ import Mozaik from '../../layouts/Mozaik.astro'
 import { client } from '../../lib/sanityClient.js';
 import { allCategoriesWithPosts } from '../../lib/api.js';
 import { allPosts } from '../../lib/api.js';
-import { catPages } from '../../lib/api.js';
+//import { catPages } from '../../lib/api.js';
 
 export async function getStaticPaths() {
   const paths = new Set();
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
   // Collect indexPosts
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter((post) => post.index != 'false')
+  const indexPosts = allBlogPosts?.filter((post) => post.index != !1)
   /*indexPosts.map(post => {
     //console.log(post.category)
     post.cat = post.category.slug
