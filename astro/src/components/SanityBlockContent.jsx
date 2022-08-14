@@ -4,7 +4,7 @@ import { tryGetFile } from '@sanity/asset-utils';
 
 const serializers = {
   types: {
-    code: ({node}) => <code-block code={node.code} language={node.language}></code-block>,
+    //code: ({node}) => <code-block code={node.code} language={node.language}></code-block>,
     file: ({node}) => {
       const { asset } = tryGetFile(node?.asset?._ref, {
         // put your own envs
