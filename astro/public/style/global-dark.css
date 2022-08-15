@@ -86,6 +86,7 @@ body {
 
 main {
   width: min(100%, 112ch);
+  margin-top: 5rem;
 }
 section {
   width: 100%;
@@ -118,13 +119,13 @@ nav > ul > li {
     padding-top: 0;
   }
   main {
-    margin-top: 7rem;
+    margin-top: 12rem;
   }
 }
 
-nav + main > :first-child {
+/*nav + main > :first-child {
   padding-top: 12rem;
-}
+}*/
 nav > ul > li > a, nav > ul > li >span {
   font-weight: bold;
 }
