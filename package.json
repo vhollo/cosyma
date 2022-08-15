@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "vandals-astro-sanity",
+  "name": "cosyma-astro-sanity",
   "version": "0.0.0",
   "scripts": {
     "build": "lerna run build --parallel",
