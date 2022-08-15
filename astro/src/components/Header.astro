@@ -88,6 +88,7 @@ home = home || cats?.shift() || {}
     /*position: absolute;*/
     /*top: -3.75rem;*/
     /*top: 0;*/
+    box-shadow: 0 0 .5rem;
   }
   nav a, nav span {
     display: block;
@@ -160,9 +161,9 @@ home = home || cats?.shift() || {}
   }
   input ~ ul > li {
     /*padding-inline-end: 2rem;*/
-    font-size: larger;
+    /*font-size: larger;*/
     position: relative;
-    margin-top: 2.75rem;
+    margin-top: 3.25rem;
     height: fit-content;
   }
   input ~ ul > li:last-child {
@@ -175,7 +176,7 @@ home = home || cats?.shift() || {}
     color: var(--lighter);
   }
 
-  ul ul {
+  li ul {
     /*display: none;*/
     display: block;
     width: 0;
@@ -192,13 +193,13 @@ home = home || cats?.shift() || {}
     border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
     margin-left: -3px;
+    transition: opacity .25s;
+    transition-delay: .1s
   }
   li:focus-within ul, li:hover ul {
     /*display: block;*/
     height: auto;
     opacity: 1;
-    transition: opacity .25s;
-    transition-delay: .1s
   }
   nav > ul > li:focus-within, nav > ul > li:hover {
     border-left: 3px solid;
@@ -249,6 +250,7 @@ home = home || cats?.shift() || {}
   @media screen and (max-width: 768px), (pointer: none) {
     .mobile {
       display: block;
+      padding-top: 3.75rem;
     }
 
     input ~ ul {
