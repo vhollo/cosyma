@@ -101,6 +101,24 @@ main, section {
   /*align-items: center;*/
   padding: 0 var(--gutterx) var(--spacer);
 }
+
+html nav {
+  position: sticky;
+  top: -3.75rem;
+}
+nav > ul > li {
+  padding-top: 1rem;
+}
+@media screen and (min-height: 640px) {
+  html nav {
+    position: fixed;
+    top: 0;
+  }
+  nav > ul > li {
+    padding-top: 0;
+  }
+}
+
 nav + main > :first-child {
   padding-top: 12rem;
 }
