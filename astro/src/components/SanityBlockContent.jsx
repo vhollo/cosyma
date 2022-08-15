@@ -1,5 +1,5 @@
-//import 'astro/jsx-runtime'
-import {h} from 'preact';
+import 'astro/jsx-runtime'
+//import {h} from 'preact';
 import BlockContent from '@sanity/block-content-to-react';
 import { tryGetFile } from '@sanity/asset-utils';
 
