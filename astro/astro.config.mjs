@@ -1,12 +1,12 @@
-import netlify from '@astrojs/netlify/functions'; // @ts-check
+//import netlify from '@astrojs/netlify/functions'; // @ts-check
 
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: netlify(),
+  output: 'static',
+  /*adapter: netlify(),*/
 
   /*buildOptions: {
     sitemap: true,      // Generate sitemap (set to "false" to disable)
