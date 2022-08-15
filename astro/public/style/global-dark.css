@@ -117,6 +117,9 @@ nav > ul > li {
   nav > ul > li {
     padding-top: 0;
   }
+  main {
+    margin-top: 7rem;
+  }
 }
 
 nav + main > :first-child {
