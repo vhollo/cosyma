@@ -26,7 +26,7 @@ const lang = 'hu'
   const home = allCategoryData?.filter(p => p.index >= 0).shift() || {}
   //console.log({pages})
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter(p => p.index && p._lang == lang)
+  const indexPosts = allBlogPosts?.filter(p => p.index != !1 && p._lang == lang)
   //console.log(indexPosts.map(p => p._id))
 
   // Prepare Menuitems (on every post)

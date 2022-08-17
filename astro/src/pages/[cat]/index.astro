@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 
   // Collect indexPosts
   const allBlogPosts = await client.fetch(allPosts);
-  const indexPosts = allBlogPosts?.filter((post) => post.index != !1)
+  const indexPosts = allBlogPosts?.filter(p => p.index != !1)
   /*indexPosts.map(post => {
     //console.log(post.category)
     post.cat = post.category.slug
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   const cats = allCategoryData.slice()
   cats.map(category => {
     category.menu = new Object()
-  //console.log(category.slug)
+    //console.log(category.slug)
     const slugs = Object.entries(category.slug)
     slugs.forEach(([lang, slug]) => {
       category.menu[lang] = new Array()
@@ -40,6 +40,13 @@ export async function getStaticPaths() {
 
       if (lang == slug.current) {
         filteredPosts = indexPosts.filter((p) => p._lang == lang)
+      }
+      else filteredPosts = category.posts?.filter(p => p._lang == lang);
+      if (category.abc || category.order == 'abc') {
+        filteredPosts.sort((a, b) => {
+          return a.slug.current.localeCompare(b.slug.current)
+        })
+      }
 
         // Prepare main Nav (on every post)
         allCategoryData.slice().map(cat => {
@@ -53,19 +60,9 @@ export async function getStaticPaths() {
             })
           }
           category.menu[lang][slug.current] = fPosts
+          //console.log({fPosts})
         })
       
-      }
-      //console.log(category.menu)
-      else filteredPosts = category.posts?.filter(p => p._lang == lang);
-      /*filteredPosts.map(p => { /// ?
-        p.cat = category.slug
-      })*/
-      if (category.abc || category.order == 'abc') {
-        filteredPosts.sort((a, b) => {
-          return a.slug.current.localeCompare(b.slug.current)
-        })
-      }
       //category.menu[lang][cat.slug[lang].current] = category.menu[lang][cat.slug[lang].current] || filteredPosts /// ?
 
 

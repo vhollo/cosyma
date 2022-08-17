@@ -4,9 +4,9 @@ import Debug from 'astro/debug'
 const { page, pages, lang } = Astro.props;
 //const p = pages.slice()
 const cats = pages?.filter(cat => cat.index >= 0) || []
+cats.map(c => console.log(c))
 let home
 home = home || cats?.shift() || {}
-//console.log(cats[2])
 ---
 <nav>
   <input type="checkbox" id="hamburger" hidden/>
@@ -21,8 +21,8 @@ home = home || cats?.shift() || {}
       <li>
       {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</span>}
         {cat.dropdown && cat.posts && <ul class="desktop">
-          {cat.posts.slice(0, cat.dropmax || 4).map(sub => (
-          sub._lang == lang && <li>
+          {cat.posts.filter(p => p._lang == lang).slice(0, cat.dropmax || 7).map(sub => (
+          <li>
             <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
           </li>
           ))}
