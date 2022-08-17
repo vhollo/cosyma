@@ -61,7 +61,7 @@ export default {
     },
     {
       name: 'link',
-      title: 'Menu links to page?',
+      title: 'Menu links to this page?',
       type: 'boolean',
       localize: false,
     },

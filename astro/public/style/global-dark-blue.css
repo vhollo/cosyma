@@ -288,7 +288,7 @@ section {
 }
 section > a, section > div {
   margin-inline: auto;
-  max-width: max(85%,29ch);
+  max-width: max(77%,29ch);
   padding: 0 1vw;
   box-sizing: content-box;
   transition: all .25s;

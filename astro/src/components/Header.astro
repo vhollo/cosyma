@@ -20,7 +20,7 @@ home = home || cats?.shift() || {}
     {cats?.length && cats.map(cat => (
       <li>
       {cat.link ? <a href={`/${cat.slug[lang].current}`}>{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</a> : <span tabindex="0">{cat.menutitle && (cat.menutitle[lang]) || (cat.title && cat.title[lang]) || cat.name[lang] || ''}</span>}
-        {cat.dropdown && cat.posts && <ul class="desktop">
+        {cat.dropdown && cat.posts && <ul class="de-sktop">
           {cat.posts.filter(p => p._lang == lang).slice(0, cat.dropmax || 7).map(sub => (
           <li>
             <a href={`/${sub.category.slug[lang].current}/${sub.slug.current}`}>{sub.menutitle || sub.name || sub.title}</a>
@@ -48,26 +48,6 @@ home = home || cats?.shift() || {}
 </nav>
 
 <style>
-  :checked ~ label .open {
-    display: none;
-  }
-  :not(:checked) ~ label .close {
-    display: none;
-  }
-
-  label {
-    order: 0;
-    flex-shrink: 0;
-    stroke: currentColor;
-  }
-  label svg {
-    width: 3rem;
-    height: 3rem;
-  }
-  label:focus + ul, label + ul:focus {
-    display: block;
-  }
-
   nav {
     width: 100%;
     display: flex;
@@ -248,6 +228,27 @@ home = home || cats?.shift() || {}
   nav ul a:not(.mobile) {
     display: block;
   }
+
+  :checked ~ label .open {
+    display: none;
+  }
+  :not(:checked) ~ label .close {
+    display: none;
+  }
+
+  label {
+    order: 0;
+    flex-shrink: 0;
+    stroke: currentColor;
+  }
+  label svg {
+    width: 3rem;
+    height: 3rem;
+  }
+  label:focus + ul, label + ul:focus {
+    display: block;
+  }
+  
   .desktop {
     display: none;
   }
