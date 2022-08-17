@@ -6,7 +6,7 @@ const { pages, lang, post } = Astro.props;
 
 <footer>
 <dl>
-  <dt>Kapcsolat</dt>
+  <dt>☞</dt>
   <dd>
     <column>
       <a href="mailto:info@cosyma.hu" target="_blank">info@cosyma.hu</a>
@@ -20,7 +20,7 @@ const { pages, lang, post } = Astro.props;
   </dd>
 </dl>
 <dl>
-  <dt>Megosztás</dt>
+  <dt>📎</dt>
     <dd>
       <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${post?.category.slug[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Twitter</a>
       <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${post?.category.slug[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Facebook</a>
@@ -45,6 +45,7 @@ const { pages, lang, post } = Astro.props;
   }
   dt {
     font-family: 'Alegreya SC', serif;
+    font-size: x-large;
   }
   footer, dd {
     display: flex;
