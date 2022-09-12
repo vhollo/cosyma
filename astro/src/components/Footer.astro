@@ -1,7 +1,8 @@
 ---
 import Debug from 'astro/debug'
 
-const { pages, lang, post } = Astro.props;
+const { lang, post } = Astro.props;
+const url = post?.category.slug[lang].current ? post.category.slug[lang].current + '/' + (post.slug.current || '') : ''
 ---
 
 <footer>
@@ -22,8 +23,8 @@ const { pages, lang, post } = Astro.props;
 <dl>
   <dt>📎</dt>
     <dd>
-      <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${post?.category.slug[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Twitter</a>
-      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${post?.category.slug[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Facebook</a>
+      <a href={`https://twitter.com/intent/tweet?text=https://www.cosyma.hu/${url}`} rel="external noopener" target="_blank">Twitter</a>
+      <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.cosyma.hu/${url}`} rel="external noopener" target="_blank">Facebook</a>
       <!--<a href={`https://www.facebook.com/dialog/share?app_id=5064192827001864&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer`} rel="external noopener" target="_blank">Facebook</a>-->
       <!--<a href={`mailto:?subject=${post?.title}%20–%20cosyma.hu&body=${post?.title}%0A%0A%0A%0Ahttps://www.cosyma.hu/${post?.category.slug[lang].current}/${post?.slug.current}`} rel="external noopener" target="_blank">Email</a>-->
       <!--<a href="/rss.xml" rel="external noopener" target="_blank">RSS</a>-->

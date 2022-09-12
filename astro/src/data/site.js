@@ -1,7 +1,7 @@
 export default {
     title: `Cosyma`,
-    description: `Collegium Symphonica Hungarica.`,
-    url: `https://cosyma.netlify.app`, // No trailing slash!
+    description: `Collegium Symphonica Hungarica`,
+    url: `https://www.cosyma.hu`, // No trailing slash!
     // JSON LD
     name: `Cosyma`,
     // Facebook URL
