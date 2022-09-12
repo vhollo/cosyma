@@ -46,6 +46,9 @@ const { pages, lang, post } = Astro.props;
   dt {
     font-family: 'Alegreya SC', serif;
     font-size: x-large;
+    height: 0px;
+    margin-bottom: -0.5rem;
+    overflow-y: visible;
   }
   footer, dd {
     display: flex;
@@ -56,7 +59,7 @@ const { pages, lang, post } = Astro.props;
   column {
     display: inline-flex;
     flex-direction: column;
-    /*gap: 2ch;*/
+    gap: 0.5rem;
   }
   row {
     display: inline-flex;

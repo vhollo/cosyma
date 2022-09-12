@@ -69,7 +69,7 @@ html {
   /*filter: hue-rotate(5deg) contrast(1.1);*/
 }
 body {
-  min-height: 100vh;
+  /*min-height: 100vh;*/
   margin-inline: auto;
   color: var(--light);
   /*filter: hue-rotate(5deg) contrast(1.1);*/
