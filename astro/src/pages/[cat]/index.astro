@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   const cats = allCategoryData.slice()
   cats.map(category => {
     category.menu = new Object()
-    //console.log(category.slug)
+    //console.log(category.slug.hu)
     const slugs = Object.entries(category.slug)
     slugs.forEach(([lang, slug]) => {
       category.menu[lang] = new Array()

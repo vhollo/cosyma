@@ -22,7 +22,7 @@ export const allPosts = `
 } | order(coalesce(publishedAt, _createdAt) desc)`;
 
 export const allCategoriesWithPosts = `
-*[_type == 'category']{
+*[_type == 'category' && !(_id match "drafts*")]{
   ..., 
   "posts": *[_type == 'post' && references(^._id) && !(_id match "drafts*")]
   {
