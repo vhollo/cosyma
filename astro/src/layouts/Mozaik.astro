@@ -6,7 +6,7 @@ import Image from '../components/Image.astro'
 import Timeline from '../components/Timeline.astro'
 import SanityBlockContent from '../components/SanityBlockContent.jsx'
 
-import Debug from 'astro/debug'
+//import Debug from 'astro/debug'
 
 // Component Imports
 // import Header from '$lib/Header.astro'
@@ -19,24 +19,13 @@ import Debug from 'astro/debug'
 // All variables are available to use in the HTML template below.
 
 const { page, post, posts, summaryfrom, lang } = Astro.props
-//console.log('MOZAIK', ...posts)
-//console.log('MOZAIK',posts?.map(p => p.slug.current))
-//console.log('MOZAIK',posts?.map(p => p.publishedAt))
-
-//console.log('RELPOSTS', post?.relposts?.length)
-//console.log('SUBPOSTS', post?.subposts?.length)
-//console.log('GALLERIES', post?.galleries?.length)
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
 
 const imgsize = { "default": 360, "double": 720, "full": 1440 }
 const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
-<Layout {...Astro.props} meta={page?.title}>
+<Layout {...Astro.props}>
 
 <main>
-<!--<Debug {post}/>-->
 {post && <Post {post} {lang}/>}
 {!post && !!page && <Page {page} {lang}/>}
 </main>

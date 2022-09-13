@@ -29,6 +29,7 @@ const serializers = {
 }
 
 export default function SanityBlockContent({blocks}) {
+  //console.log('BLOCKS', blocks)
   return (
     <BlockContent blocks={blocks} serializers={serializers} />
   )

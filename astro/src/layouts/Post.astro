@@ -5,7 +5,7 @@ import SanityBlockContent from '../components/SanityBlockContent.jsx'
 import Debug from 'astro/debug'
 
 const { post, lang } = Astro.props
-//console.log(post.galleries)
+//console.log('POST', post.summary)
 //post.galleries.map(g => console.log(g))
 //console.log(SanityBlockContent({"blocks":post.summary}))
 const imgsize = { "default": 360, "double": 720, "full": 1440 }
@@ -35,7 +35,6 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
   <SanityBlockContent blocks={post.summary}/>
 </header>}
 
-<!--<Debug {post?.body}/>-->
 {post?.body && 
 <article>
   <SanityBlockContent blocks={post.body}/>

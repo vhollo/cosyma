@@ -1,11 +1,13 @@
 //import netlify from '@astrojs/netlify/functions'; // @ts-check
-
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
+
+import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
+
   /*adapter: netlify(),*/
 
   /*buildOptions: {
@@ -13,5 +15,5 @@ export default defineConfig({
   },*/
   site: 'https://www.cosyma.hu/',
   // Your public domain, e.g.: https://my-site.dev/. Used to generate sitemaps and canonical URLs.
-  integrations: [preact()]
+  integrations: [preact(), svelte()]
 });

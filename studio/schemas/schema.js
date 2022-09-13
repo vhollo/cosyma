@@ -10,7 +10,7 @@ import category from './documents/category'
 import timeslot from './documents/timeslot'
 import gallery from './documents/gallery'
 import post from './documents/post'
-import page from './documents/page'
+//import page from './documents/page'
 
 export default createSchema({
   name: 'default',
@@ -24,7 +24,7 @@ export default createSchema({
       openGraph,
       captionImage,
       post,
-      page,
+      //page,
     ])
     // Include documents with field translation support.
     // This changes their structure, transforming
