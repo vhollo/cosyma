@@ -18,7 +18,7 @@ import site from "../data/site.js";
 const {lang, page, post, permalink } = Astro.props;
 
 const description = post?.summary && toPlainText(post.summary) || page?.description && page.description[lang] || site.description[lang]
-console.log({description})
+//console.log({description})
 const url = site.url + (post?.category.slug[lang].current ? '/' + post.category.slug[lang].current + '/' + (post.slug.current || '') : '')
 const title = post?.title || page?.title && page.title[lang] || page?.menutitle && page.menutitle[lang] || page?.name && page.name[lang] || site.title
 //const description = post?.summary || page.description[lang] || site.description
