@@ -75,7 +75,10 @@ onload="this.onload=null;this.rel='stylesheet'">
     document.addEventListener("fullscreenchange", function() {
       !document.fullscreenElement && img.remove()
     }, 'once')
-    document.body.appendChild(img).requestFullscreen()
+    document.body.appendChild(img)
+    img.requestFullscreen && img.requestFullscreen()
+    img.webkitRequestFullscreen && img.webkitRequestFullscreen()
+    img.mozRequestFullScreen && img.mozRequestFullScreen()
     //!document?.fullscreenElement ? el.src=JSON.parse(JSON.stringify(s)) && el.requestFullscreen() : el.src=JSON.parse(JSON.stringify(o)) && document.exitFullscreen()
   }
 </script>
