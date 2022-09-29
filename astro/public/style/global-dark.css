@@ -84,6 +84,15 @@ body {
   }
 }*/
 
+/* HIDE CHECKBOX */
+[type=radio], [type=checkbox] { 
+  position: absolute!important;
+  opacity: 0!important;
+  width: 0!important;
+  height: 0!important;
+  z-index: -1;
+}
+
 main {
   width: min(100%, 112ch);
   margin-top: 5rem;
@@ -324,5 +333,13 @@ section > a:hover, section > div:hover {
   transform: scale(1.025);
   box-shadow: var(--shadow) 0 0 1rem;
 }
-
+/*section > div:has(:checked) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+}
+*/
 /* Mobile nav */

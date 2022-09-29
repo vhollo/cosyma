@@ -64,5 +64,21 @@ onload="this.onload=null;this.rel='stylesheet'">
     rel="stylesheet"
     type="text/css">
 </noscript>
+
+<script is:inline>
+  function _zoom(s) {
+    const img = new Image()
+    img.src = s
+    img.addEventListener("click", function() {
+      this.remove()
+    }, 'once')
+    document.addEventListener("fullscreenchange", function() {
+      !document.fullscreenElement && img.remove()
+    }, 'once')
+    document.body.appendChild(img).requestFullscreen()
+    //!document?.fullscreenElement ? el.src=JSON.parse(JSON.stringify(s)) && el.requestFullscreen() : el.src=JSON.parse(JSON.stringify(o)) && document.exitFullscreen()
+  }
+</script>
+
 {articleSchema && (<ArticleSchema title={title} description={description} permalink={url} publishDate={publishDate} ogImageUrl={ogImageUrl} />)}
 

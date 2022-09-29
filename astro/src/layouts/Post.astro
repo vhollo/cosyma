@@ -8,7 +8,7 @@ const { post, lang } = Astro.props
 //console.log('POST', post.summary)
 //post.galleries.map(g => console.log(g))
 //console.log(SanityBlockContent({"blocks":post.summary}))
-const imgsize = { "default": 360, "double": 720, "full": 1440 }
+const imgsize = { "default": 480, "double": 960, "full": 1600 }
 const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
 
@@ -25,7 +25,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 <h1>{post.title}</h1>}
 
 {post?.image?.asset && 
-<Image lazy="lazy" radius double image={post.image} w="1440" />}
+<Image lazy radius double image={post.image} w="960" />}
 
 {post?.subtitle &&
 <h2>{post.subtitle}</h2>}
@@ -44,53 +44,32 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 <article>
   <Timeline timeline={post.timeline} {lang}/>
 </article>}
-<!--
-{post?.galleries && 
-<section>
-{post.galleries?.map(gal => (
-  item.category ? (
-  <a href={item.weblink || `/${item.category.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
-    <h2>{item.title}</h2>
-    {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
-    {item.subtitle && <h3>{item.subtitle}</h3>}
-    {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
-  </a>
-  ) : (
-  <div class={item.size}>
-    <h2>{item.title}</h2>
-    {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
-    {item.subtitle && <h3>{item.subtitle}</h3>}
-    {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
-  </div>
-  )
-))}
-</section>
-}
--->
 
 {post?.galleries?.map(gal => (
-  <!--<Debug {gal}/>-->
+  <>
   {gal.title && <h2>{gal.title[lang]}</h2>}
   <section>
   {gal.posts.map(item => (
-    <!--<Debug {item}/>-->
-    {item._lang == lang && (item.weblink ? (
+    <>
+    {item.weblink && item._lang == lang ? (
       <a href={item.weblink} class={item.size}>
         <h2>{item.title}</h2>
-        {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+        {item.image?.asset && <Image lazy {item.size} image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
         {item.subtitle && <h3>{item.subtitle}</h3>}
         {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
       </a>
       ) : (
       <div class={item.size}>
         <h2>{item.title}</h2>
-        {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+        {item.image?.asset && <Image lazy {item.size} zoom image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
         {item.subtitle && <h3>{item.subtitle}</h3>}
         {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
       </div>
-    ))}
+    )}
+    </>
   ))}
   </section>
+  </>
 ))}
 
 <!--

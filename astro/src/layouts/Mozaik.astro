@@ -36,7 +36,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
     item.weblink || item.category ? (
     <a href={item.weblink || `/${item.category?.slug[item._lang].current}/${item.slug.current}`} class={item.size}>
       <h2>{item.menutitle || item.title}</h2>
-      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.image?.asset && <Image lazy {item.size} image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
       {!!item.summary && item.summaryfrom != 'none' && <SanityBlockContent blocks={item.summary}/>}
       {(summaryfrom == 'content' && !item.summary) && (
@@ -46,7 +46,7 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
     ) : (
     <div class={item.size}>
       <h2>{item.menutitle || item.title}</h2>
-      {item.image?.asset && <Image lazy image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]}/>}
+      {item.image?.asset && <Image lazy {item.size} image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
       {item.subtitle && <h3>{item.subtitle}</h3>}
       {!!item.summary && item.summaryfrom != 'none' && <SanityBlockContent blocks={item.summary}/>}
       {(summaryfrom == 'content' && !item.summary) && (
@@ -57,6 +57,3 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
   ))}
 </section>}
 </Layout>
-
-<style>
-</style>

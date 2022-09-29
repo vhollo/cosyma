@@ -1,36 +1,37 @@
 ---
 import { getSanityImageUrl, formatBlogPostDate } from '../utils/helpers.js'
-const { image, radius, lazy, double } = Astro.props
-//console.log('IMAGE',Astro.props.lazy)
-if (!image?.asset) return
-let src// = getSanityImageUrl(image)
-
-let { w } = Astro.props
-w = w || 720
-
-let { h } = Astro.props
-h = h || false
-let { ratio } = Astro.props
-if (ratio) h = w * ratio / 100
-
-if (h) {
-  src = getSanityImageUrl(image).width(w).height(h).format('webp').url()
-} else {
-  src = getSanityImageUrl(image).width(w).format('webp').url()
-}
-
+const { image, radius, lazy, double, lang, zoom } = Astro.props
+//console.log('IMAGE',image)
+let src//, srczoom
 const { caption } = image || {}
-//console.log('IMAGE', src)
-//let path = `/assets/${folder}/${src}`
-let lang = 'hu'//, lazy, radius
+const loading = !!lazy ? 'lazy' : 'eager'
+
+//if (image?.asset) {
+  let { w } = Astro.props
+  w = w || 960
+
+  let { h } = Astro.props
+  h = h || false
+  let { ratio } = Astro.props
+  if (ratio) h = w * ratio / 100
+
+  if (h) {
+    src = getSanityImageUrl(image).width(w).height(h).format('webp').url() || null
+  } else {
+    src = getSanityImageUrl(image).width(w).format('webp').url() || null
+  }
+  const srczoom = getSanityImageUrl(image).width(1600).format('webp').url() || null
+  const onclick = !!zoom ? `_zoom('${srczoom}')` : null
+//}
 ---
-<!--{folder && src && -->
 {src && 
-  <figure class = {`${(radius ? 'radius ' : '')} ${(double ? 'double' : '')}`}>
-    <img loading={lazy} src={src} alt=""/>
+  <figure class={`${(radius ? 'radius ' : '')} ${(double ? 'double' : '')}`}>
+    <img {loading} {src} class={`${(zoom ? 'zoom' : '')}`} alt="" {onclick}/>
     {!!caption && <figcaption lang={lang}>{caption[lang] || caption}</figcaption>}
   </figure>
 }
+<link rel="preload" as="image" href={srczoom}>
+<!--<link rel="prefetch" as="image" href={srczoom}>-->
 
 <style>
 	figure {
@@ -38,7 +39,21 @@ let lang = 'hu'//, lazy, radius
 		margin: 1rem auto;
     /*max-height: 30vh;*/
     width: auto;
+    overflow: hidden;
 	}
+
+  /*:checked + figure img {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: 100vw;
+    width: 100vw;
+    object-fit: contain;
+    z-index: 1;
+  }*/
+
 	.radius img {
     /* nem kell */
     /*border-radius: 0.5rem;*/
@@ -52,5 +67,8 @@ let lang = 'hu'//, lazy, radius
 	}
   .double img {
     max-height: 45vh;
+  }
+  img.zoom {
+    cursor:zoom-in;
   }
 </style>
