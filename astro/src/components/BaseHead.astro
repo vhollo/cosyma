@@ -66,22 +66,46 @@ onload="this.onload=null;this.rel='stylesheet'">
 </noscript>
 
 <script is:inline>
-  function _zoom(s) {
-    const img = new Image()
-    img.src = s
-    img.addEventListener("click", function() {
-      this.remove()
-    }, 'once')
-    document.addEventListener("fullscreenchange", function() {
-      !document.fullscreenElement && img.remove()
-    }, 'once')
-    document.body.appendChild(img)
-    img.requestFullscreen && img.requestFullscreen()
-    img.webkitRequestFullscreen && img.webkitRequestFullscreen()
-    img.mozRequestFullScreen && img.mozRequestFullScreen()
-    //!document?.fullscreenElement ? el.src=JSON.parse(JSON.stringify(s)) && el.requestFullscreen() : el.src=JSON.parse(JSON.stringify(o)) && document.exitFullscreen()
+  function _zoomin(s) {
+    if (document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen) {
+      const img = document.getElementById('zoom')
+      img.src = s
+      try {
+        img.requestFullscreen()
+      }
+      catch {
+        try {
+          img.webkitRequestFullscreen()
+        }
+        catch {
+          try {
+            img.mozRequestFullScreen()
+          }
+          catch {}
+        }
+      }
+    }
+  }
+  function _zoomout() {
+    if (document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen) {
+      try {
+        document.exitFullscreen()
+      }
+      catch {
+        try {
+          document.webkitExitFullscreen()
+        }
+        catch {
+          try {
+            document.mozExitFullScreen()
+          }
+          catch {}
+        }
+      }
+    }
   }
 </script>
 
 {articleSchema && (<ArticleSchema title={title} description={description} permalink={url} publishDate={publishDate} ogImageUrl={ogImageUrl} />)}
 
+</style>

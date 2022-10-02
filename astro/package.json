@@ -1,9 +1,9 @@
 {
-  "name": "cosyma-astro-anity",
+  "name": "cosyma-astro-sanity",
   "version": "0.1.1",
   "private": false,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview"

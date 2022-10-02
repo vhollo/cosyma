@@ -33,11 +33,31 @@ const ogImageUrl = post?.image.asset && getSanityImageUrl(post.image).width(1200
     <Header {...Astro.props}/>
     <slot/>
     <Footer {title} {description} {url} {site}/>
+
+    <div id="zoom-wrap">
+      <img id="zoom" alt="" onclick="_zoomout()"/>
+    </div>
+    
   </body>
 </html>
 
 <style>
   a {
     text-decoration: revert;
+  }
+  #zoom-wrap {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    z-index: -999;
+    overflow: hidden;
+  }
+  #zoom {
+    background-image: url('/apple-touch-icon.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor:zoom-out;
   }
 </style>

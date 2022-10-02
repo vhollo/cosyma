@@ -21,7 +21,7 @@ const loading = !!lazy ? 'lazy' : 'eager'
     src = getSanityImageUrl(image).width(w).format('webp').url() || null
   }
   const srczoom = getSanityImageUrl(image).width(1600).format('webp').url() || null
-  const onclick = !!zoom ? `_zoom('${srczoom}')` : null
+  const onclick = !!zoom ? `_zoomin('${srczoom}')` : null
 //}
 ---
 {src && 
@@ -41,18 +41,6 @@ const loading = !!lazy ? 'lazy' : 'eager'
     width: auto;
     overflow: hidden;
 	}
-
-  /*:checked + figure img {
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    max-width: 100vw;
-    width: 100vw;
-    object-fit: contain;
-    z-index: 1;
-  }*/
 
 	.radius img {
     /* nem kell */
