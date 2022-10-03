@@ -49,25 +49,24 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
   <>
   {gal.title && <h2>{gal.title[lang]}</h2>}
   <section>
-  {gal.posts.map(item => (
-    <>
-    {item.weblink && item._lang == lang ? (
+  {gal.posts.map(item => item._lang == lang && (
+    item.weblink ? (
       <a href={item.weblink} class={item.size}>
         <h2>{item.title}</h2>
         {item.image?.asset && <Image lazy {item.size} image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
         {item.subtitle && <h3>{item.subtitle}</h3>}
         {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
       </a>
-      ) : (
+    ) : (
+  <!--<Debug {item} />-->
       <div class={item.size}>
         <h2>{item.title}</h2>
         {item.image?.asset && <Image lazy {item.size} zoom image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
         {item.subtitle && <h3>{item.subtitle}</h3>}
         {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
       </div>
-    )}
-    </>
-  ))}
+    ))
+  )}
   </section>
   </>
 ))}

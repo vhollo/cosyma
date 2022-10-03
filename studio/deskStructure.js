@@ -16,6 +16,9 @@ export const getDefaultDocumentNode = (props) => {
   if (props.schemaType === 'page') {
     return S.document().views(I18nS.getDocumentNodeViewsForSchemaType(props.schemaType));
   }
+  if (props.schemaType === 'gallery') {
+    return S.document().views(I18nS.getDocumentNodeViewsForSchemaType(props.schemaType));
+  }
   return S.document();
 };
 
@@ -23,6 +26,7 @@ export default () =>
   S.list()
     .title('Content')
     .items([
+      
       S.documentTypeListItem('category')
         .icon(ArticleIcon),
       //S.listItem()
@@ -50,6 +54,9 @@ export default () =>
               .params({ categoryId })
           )
       ),
+
+      S.documentTypeListItem('gallery')
+        .icon(ArticleIcon),
 
       S.listItem()
       .title('All Posts & Assets')

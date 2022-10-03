@@ -7,7 +7,7 @@
 # lerna files
 /lerna-debug.log
 
-studio/dist
-astro/dist
+/studio/dist
+/astro/dist
 # Local Netlify folder
 .netlify

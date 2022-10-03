@@ -1,7 +1,7 @@
 import { baseLanguage } from '../languages'
 
 export default {
-  title: 'Gallery',
+  title: 'Galleries',
   name: 'gallery',
   type: 'document',
   fields: [
@@ -12,6 +12,14 @@ export default {
       localize: true,
     },
     {
+      name: 'secret',
+      title: 'Secret title',
+      type: 'string',
+      options: {
+        maxLength: 96
+      },
+    },
+    {
       name: 'posts',
       title: 'Gallery posts',
       type: 'array',
@@ -19,21 +27,25 @@ export default {
         type: 'reference',
         to: [
           {type: 'post'}
-        ]
+        ],
+        options: {
+          filter: '_lang == $lang',
+          filterParams: {lang: 'hu'}
+        }      
         }],
     },
   ],
   preview: {
     select: {
       title: 'title',
-      category: 'category.name.hu',
-      media: 'image'
+      subtitle: 'secret'
     },
+    /*,
     prepare(selection) {
-      const {category} = selection
+      const {title, secret} = selection
       return Object.assign({}, selection, {
-        subtitle: category && `📎 ${category}`,
+        title: title.hu || secret
       })
-    },
+    },*/
   },
 }
