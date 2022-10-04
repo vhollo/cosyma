@@ -76,7 +76,7 @@ export async function getStaticPaths({rss}) {
         }
 
         //gallery: referenced posts should be merged
-        post.galleries?.map(gal => {
+        post.galleries && post.galleries.map(gal => {
           let prs = []
           gal.posts.map(post => {
             post.refs && prs.push(...post.refs)
