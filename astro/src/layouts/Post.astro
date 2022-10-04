@@ -58,7 +58,6 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
         {!!item.summary && <SanityBlockContent blocks={item.summary}/>}
       </a>
     ) : (
-  <!--<Debug {item} />-->
       <div class={item.size}>
         <h2>{item.title}</h2>
         {item.image?.asset && <Image lazy {item.size} zoom image={item.image} w={imgsize[item.size]} ratio={ratio[item.size]} {lang}/>}
