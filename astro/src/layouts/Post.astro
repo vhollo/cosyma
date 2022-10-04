@@ -5,22 +5,10 @@ import SanityBlockContent from '../components/SanityBlockContent.jsx'
 //import Debug from 'astro/debug'
 
 const { post, lang } = Astro.props
-//console.log('POST', post.summary)
-//post.galleries.map(g => console.log(g))
-//console.log(SanityBlockContent({"blocks":post.summary}))
+
 const imgsize = { "default": 480, "double": 960, "full": 1600 }
 const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
-
-<!--
-  - You can also use imported framework components directly in your markup!
-  -
-  - Note: by default, these components are NOT interactive on the client.
-  - The `:visible` directive tells Astro to make it interactive.
-  -
-  - See https://docs.astro.build/core-concepts/component-hydration/ 
--->
-
 {post?.title &&
 <h1>{post.title}</h1>}
 
