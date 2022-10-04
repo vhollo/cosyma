@@ -1,5 +1,2 @@
-[build]
-  publish = "dist"
-
 [dev]
   targetPort = 3000
