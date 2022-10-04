@@ -29,8 +29,8 @@ export default {
           {type: 'post'}
         ],
         options: {
-          filter: '_lang == $lang',
-          filterParams: {lang: 'hu'}
+          filter: '_lang == $lang && !(_id match $draft)',
+          filterParams: {lang: 'hu', draft: 'drafts*'}
         }      
         }],
     },

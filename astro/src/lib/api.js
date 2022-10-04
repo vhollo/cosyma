@@ -42,8 +42,7 @@ export const allCategoriesWithPosts = `
       }
     },
     category->{slug, 'name': name},
-    relposts[]->{..., category->{slug, 'category': name}},
-    galleries[][!(_id match "drafts*")]->{..., posts[]->{
+    galleries[!(_id match "drafts*")]->{..., posts[!(_id match "drafts*")]->{
       ..., 
       _langRefs,
       !(_id match "i18n*") => {
