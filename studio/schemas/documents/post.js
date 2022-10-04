@@ -103,7 +103,7 @@ export default {
         ]
       }],
     },
-    {
+    /*{
       title: 'Related posts title',
       name: 'reltitle',
       type: 'string',
@@ -118,7 +118,7 @@ export default {
           {type: 'post'}
         ]
       }],
-    },
+    },*/
     {
       name: 'timeline',
       title: 'Timeline',
