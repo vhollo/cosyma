@@ -2,10 +2,12 @@
 import Image from '../components/Image.astro'
 import Timeline from '../components/Timeline.astro'
 import SanityBlockContent from '../components/SanityBlockContent.jsx'
-//import Debug from 'astro/debug'
+import Debug from 'astro/debug'
 
 const { post, lang } = Astro.props
-
+//console.log('POST', post.summary)
+//post.galleries.map(g => console.log(g))
+//console.log(SanityBlockContent({"blocks":post.summary}))
 const imgsize = { "default": 480, "double": 960, "full": 1600 }
 const ratio = { "default": 75, "double": 55, "full": 50 }
 ---
@@ -35,6 +37,9 @@ const ratio = { "default": 75, "double": 55, "full": 50 }
 
 {post?.galleries?.map(gal => (
   <>
+  <h1>{gal.posts?.length}</h1>
+
+  <Debug {gal}/>
   {gal.title && <h2>{gal.title[lang]}</h2>}
   <section>
   {gal.posts.map(item => item._lang == lang && (
