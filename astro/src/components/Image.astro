@@ -29,9 +29,9 @@ const loading = !!lazy ? 'lazy' : 'eager'
     <img {loading} {src} class={`${(zoom ? 'zoom' : '')}`} alt="" {onclick}/>
     {!!caption && <figcaption lang={lang}>{caption[lang] || caption}</figcaption>}
   </figure>
+  <link rel="preload" as="image" href={srczoom}>
 }
-<link rel="preload" as="image" href={srczoom}>
-<!--<link rel="prefetch" as="image" href={srczoom}>-->
+  <!--<link rel="prefetch" as="image" href={srczoom}>-->
 
 <style>
 	figure {
@@ -50,7 +50,7 @@ const loading = !!lazy ? 'lazy' : 'eager'
 	img, figcaption {
 		margin: 0 auto 1rem;
     box-shadow: var(--shadow) 0 0 0.5rem;
-    --figurewidth: 32ch;
+    /*--figurewidth: 32ch;*/
     max-width: 100%;
 	}
   .double img {

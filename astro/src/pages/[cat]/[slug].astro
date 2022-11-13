@@ -84,6 +84,11 @@ export async function getStaticPaths({rss}) {
           gal.posts.push(...prs)
         })
 
+        post.langs = []
+        post.refs && post.refs.map(ref => {
+          post.langs[ref._lang] = `/${ref.slug.current}`
+        })
+
         paths.add({params: {cat: slug.current, slug: post.slug.current}, props: {lang: lang, pages: allCategoryData, page: subCat || category, posts: []/*subPosts || filteredPosts*/, post: post}})
       })
     });

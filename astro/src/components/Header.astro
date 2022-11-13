@@ -1,14 +1,18 @@
 ---
 //import Debug from 'astro/debug'
 
-const { page, pages, lang } = Astro.props;
+const { post, posts, page, pages, lang } = Astro.props;
+//console.log(page.slug[lang].current, post?.langs)
+//console.log(post?.refs)
+
 //const p = pages.slice()
 //pages.map(c => console.log(c.slug.hu))
 const cats = pages?.filter(cat => cat.index >= 0) || []
 //cats.map(c => console.log(c))
-let home
+let home//, d = false
 home = home || cats?.shift() || {}
 ---
+
 <nav>
   <input type="checkbox" id="hamburger" hidden/>
   <label for="hamburger" class="mobile">
@@ -32,21 +36,27 @@ home = home || cats?.shift() || {}
     ))
     }
     <li>
-      <details>
+      <details id="langs" tabindex="0">
         <summary>⚑</summary>
-        <a href="/">Magyar</a>
-        <a href="/en">English</a>
+        <a href={`/${page.slug['hu'].current == 'hu' ? '' : page.slug['hu'].current}${post?.langs['hu'] || ''}`}>Magyar</a>
+        <a href={`/${page.slug['en'].current}${post?.langs['en'] || ''}`}>English</a>
         <!--<a href="/de">Deutsch</a>-->
       </details>
     </li>
   </ul>
-  <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
+  <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}> <!--href = slug-->
     <img src="/assets/csh_white_notxt.svg" alt=""/>
   </a>
   <a href={`/${home.slug[lang].current == 'hu' ? '' : home.slug[lang].current}`}>
-    <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || '?!? '}</h1>
+    <h1>{(home.menutitle && home.menutitle[lang]) || (home.title && home.title[lang]) || home.category[lang] || 'Collegium Symphonicum Hungaricum'}</h1>
   </a>
 </nav>
+
+<script>
+  const langs = document.getElementById("langs")
+  document.addEventListener("click", (e) => {if(!langs.contains(e.target)) langs.removeAttribute('open')});
+  langs.addEventListener("focus", () => langs.open = true)
+</script>
 
 <style>
   nav {

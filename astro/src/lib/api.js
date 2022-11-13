@@ -58,7 +58,9 @@ export const allCategoriesWithPosts = `
     }},
     _langRefs,
     !(_id match "i18n*") => {
-      "refs": *[_id in path("i18n." + ^._id + ".*")]{_lang, slug}
+      "refs": 
+        *[_id in path("i18n." + ^._id + ".*")]{_lang, slug} +
+        *[^._id == _id]{_lang, slug}
     },
     _id match "i18n*" => {
       "refs":
