@@ -236,9 +236,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Alegreya SC', serif;
   text-rendering: geometricPrecision;
   color: var(--lighter);
+  line-height: 1.25;
 }
-/*section h1, section h2, section h3, section h4, section h5, section h6, */section * {
-  /*line-height: 1.25em;*/
+section * {
   color: var(--midtone);
   text-shadow: 0 0 1px var(--shadow);
 }
@@ -250,9 +250,8 @@ h1, h2, h3 {
   /*font-size: 1.25em;*/
   text-align: center;
 }
-h2, h3 {
-  text-rendering: geometricPrecision;
-}
+/*h2, h3 {
+}*/
 
 /*h1 {
   font-size: 2.5rem;
